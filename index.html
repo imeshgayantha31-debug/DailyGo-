@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth antialiased">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DailyGo+ | Move Through Life Smarter</title>
+    
+    <!-- Fonts: Inter for UI precision, Plus Jakarta Sans for Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+Sinhala:wght@400;600;700&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            teal: '#0F4C75',
+                            orange: '#0F4C75',
+                            dark: '#050505',
+                            card: '#111111',
+                            surface: '#1A1A1A'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                        sinhala: ['Noto Sans Sinhala', 'sans-serif'],
+                    },
+                    animation: {
+                        'gradient-x': 'gradient-x 15s ease infinite',
+                        'float': 'float 8s ease-in-out infinite',
+                        'float-delayed': 'float 8s ease-in-out 4s infinite',
+                        'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'marquee': 'marquee 30s linear infinite',
+                        'fade-in': 'fadeIn 0.3s ease-out forwards',
+                    },
+                    keyframes: {
+                        'gradient-x': {
+                            '0%, 100%': { 'background-size': '200% 200%', 'background-position': 'left center' },
+                            '50%': { 'background-size': '200% 200%', 'background-position': 'right center' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' }
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.95)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Base Polish */
+        ::selection { background: rgba(0, 128, 128, 0.3); color: inherit; }
+        html { scroll-behavior: smooth; }
+        
+        @font-face {
+  font-family: 'NeuweltInline';
+  src: url('/dailygo/images/fonts/Neuwelt\ Inline\ Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+        /* Premium True Glassmorphism */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .light-mode .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+        }
+
+        .auth-glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+        }
+        .dark .auth-glass {
+            background: rgba(10, 10, 10, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        #lang-selector {
+    padding: 6px 28px 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+    background-color: transparent;
+}
+
+/* Dropdown options */
+#lang-selector option {
+    padding: 8px;
+    font-weight: 500;
+}
+.logo-front{
+     font-family: 'NeuweltInline', sans-serif;
+}
+
+/* Hover effect */
+#lang-selector:hover {
+    border-color: #14b8a6;
+}
+
+/* Focus effect */
+#lang-selector:focus {
+    border-color: #14b8a6;
+    box-shadow: 0 0 0 2px rgba(20,184,166,0.2);
+}
+
+        /* Mesh Gradient Background for Features */
+        .mesh-bg {
+            background-color: #000000;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(0, 128, 128, 0.4) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(255, 165, 0, 0.25) 0px, transparent 50%);
+        }
+        .light-mode .mesh-bg {
+            background-color: #f8f9fa;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(0, 128, 128, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(255, 165, 0, 0.1) 0px, transparent 50%);
+        }
+
+        /* Requested Background Pattern 
+        .sl-pattern {
+            background-color: #fdfcff;
+            background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15 0C6.716 0 0 6.716 0 15c8.284 0 15-6.716 15-15zM0 15c0 8.284 6.716 15 15 15 0-8.284-6.716-15-15-15zm30 0c0-8.284-6.716-15-15-15 0 8.284 6.716 15 15 15zm0 0c0 8.284-6.716 15-15 15 0-8.284 6.716-15 15-15z' fill='%23e8e8e8' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        .dark .sl-pattern {
+            background-color: #050505;
+            background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15 0C6.716 0 0 6.716 0 15c8.284 0 15-6.716 15-15zM0 15c0 8.284 6.716 15 15 15 0-8.284-6.716-15-15-15zm30 0c0-8.284-6.716-15-15-15 0 8.284 6.716 15 15 15zm0 0c0 8.284-6.716 15-15 15 0-8.284 6.716-15 15-15z' fill='%239C92AC' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }*/
+
+        /* Hardware Mockup CSS */
+        .device-mockup {
+            box-shadow: 0 0 0 2px #1f2937, 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .dark .device-mockup {
+            box-shadow: 0 0 0 2px #374151, 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+        }
+        
+        /* SPA Routing Styles */
+        .page-view {
+            display: none !important;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        .page-view.active {
+            display: block !important;
+        }
+        
+        /* Hide scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        .dark ::-webkit-scrollbar-thumb { background: #555; }
+        .hide-scroll::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Marquee Infinite Scroll CSS */
+        .marquee-wrapper {
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .marquee-content {
+            display: flex;
+            animation: scroll-infinite linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes scroll-infinite {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .marquee-content > div {
+            flex-shrink: 0;
+            min-width: 50%;
+        }
+    </style>
+</head>
+<body class="bg-[#f8f9fa] text-gray-900 dark:bg-brand-dark dark:text-gray-100 transition-colors duration-500 overflow-x-hidden selection:bg-brand-teal selection:text-white relative">
+
+    <!-- Scroll Progress Bar -->
+    <div class="fixed top-0 left-0 h-1 bg-brand-teal z-[160] transition-all duration-150" id="scroll-progress" style="width: 0%;"></div>
+
+    <!-- Floating Navigation -->
+    <header class="fixed w-full top-0 z-[100] transition-all duration-500 pt-6 px-4 sm:px-6 lg:px-8" id="navbar">
+        <div class="max-w-7xl mx-auto">
+            <div class="glass-panel rounded-full px-6 py-3 flex justify-between items-center bg-white/70 dark:bg-brand-surface/70">
+                <!-- Logo -->
+                <div class="flex items-center gap-2 cursor-pointer" onclick="navigateAndScroll(event, 'home', null)">
+                      <img src="" alt="DailyGo+ Logo" class="w-[auto] h-[30px] object-contain" id="logo-image" style="display: none;">
+                   <span class="text-xl logo-front font-display font-bold tracking-tight text-gray-900 dark:text-white" id="logo-text">
+                        DailyGo<span class="text-brand-orange">.</span>
+                    </span>
+                </div>
+                
+                <!-- Desktop Nav -->
+                <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium text-gray-600 dark:text-gray-300">
+                    <a href="#services" onclick="navigateAndScroll(event, 'transport', 'transport-services')" class="hover:text-brand-teal transition-colors" data-i18n="nav_services">Services</a>
+                    <a href="#about" onclick="navigateAndScroll(event, 'home', 'about')" class="hover:text-brand-teal transition-colors" data-i18n="nav_about">About</a>
+                    <a href="#trust" onclick="navigateAndScroll(event, 'home', 'trust')" class="hover:text-brand-teal transition-colors" data-i18n="nav_trust">Trust & Safety</a>
+                    <a href="#features" onclick="navigateAndScroll(event, 'home', 'features')" class="hover:text-brand-teal transition-colors" data-i18n="nav_features">Features</a>
+                    <a href="#driver" onclick="navigateAndScroll(event, 'home', 'driver')" class="hover:text-brand-teal transition-colors" data-i18n="nav_drive">Drive</a>
+                </nav>
+
+                <!-- Actions -->
+                <div class="flex items-center gap-2 sm:gap-4">
+                    <!-- Language Selector - Redesigned -->
+                    <div class="relative group">
+                        <button id="lang-toggle" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-100 dark:bg-brand-surface border border-gray-200 dark:border-gray-700 hover:border-brand-teal dark:hover:border-brand-teal hover:bg-gray-50 dark:hover:bg-brand-card transition-all text-sm font-semibold text-gray-900 dark:text-white">
+                            <i class="fas fa-globe text-brand-teal"></i>
+                            <span id="lang-display">EN</span>
+                            <i class="fas fa-chevron-down text-xs text-gray-400 group-hover:text-brand-teal transition-colors"></i>
+                        </button>
+                        
+                        <!-- Language Dropdown Menu -->
+                        <div id="lang-dropdown" class="absolute right-0 mt-2 w-40 bg-white dark:bg-brand-card border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                            <div class="py-2">
+                                <button onclick="selectLanguage('en')" class="lang-option w-full text-left px-4 py-2.5 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-brand-surface text-gray-900 dark:text-gray-300 hover:text-brand-teal transition-colors" data-lang="en">
+                                    <span class="text-lg">🇬🇧</span>
+                                    <span class="font-medium">English</span>
+                                </button>
+                                <button onclick="selectLanguage('si')" class="lang-option w-full text-left px-4 py-2.5 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-brand-surface text-gray-900 dark:text-gray-300 hover:text-brand-teal transition-colors" data-lang="si">
+                                    <span class="text-lg">🇱🇰</span>
+                                    <span class="font-medium">Sinhala</span>
+                                </button>
+                                <button onclick="selectLanguage('hi')" class="lang-option w-full text-left px-4 py-2.5 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-brand-surface text-gray-900 dark:text-gray-300 hover:text-brand-teal transition-colors" data-lang="hi">
+                                    <span class="text-lg">🇮🇳</span>
+                                    <span class="font-medium">Hindi</span>
+                                </button>
+                                <button onclick="selectLanguage('zh')" class="lang-option w-full text-left px-4 py-2.5 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-brand-surface text-gray-900 dark:text-gray-300 hover:text-brand-teal transition-colors" data-lang="zh">
+                                    <span class="text-lg">🇨🇳</span>
+                                    <span class="font-medium">中文</span>
+                                </button>
+                                <button onclick="selectLanguage('de')" class="lang-option w-full text-left px-4 py-2.5 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-brand-surface text-gray-900 dark:text-gray-300 hover:text-brand-teal transition-colors" data-lang="de">
+                                    <span class="text-lg">🇩🇪</span>
+                                    <span class="font-medium">Deutsch</span>
+                                </button>
+                                <button onclick="selectLanguage('ru')" class="lang-option w-full text-left px-4 py-2.5 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-brand-surface text-gray-900 dark:text-gray-300 hover:text-brand-teal transition-colors" data-lang="ru">
+                                    <span class="text-lg">🇷🇺</span>
+                                    <span class="font-medium">Русский</span>
+                                </button>
+                                <button onclick="selectLanguage('ko')" class="lang-option w-full text-left px-4 py-2.5 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-brand-surface text-gray-900 dark:text-gray-300 hover:text-brand-teal transition-colors" data-lang="ko">
+                                    <span class="text-lg">🇰🇷</span>
+                                    <span class="font-medium">한국어</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-200 dark:hover:bg-white/10 transition-colors">
+                        <i id="theme-icon" class="fas fa-moon text-sm text-gray-700 dark:text-gray-300"></i>
+                    </button>
+                    
+                    <button onclick="toggleAuthModal()" class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-gray-900 dark:text-white hover:text-brand-teal dark:hover:text-brand-teal transition-colors" data-i18n="nav_login">
+                        Login
+                    </button>
+
+                    <!-- <a href="#download" onclick="navigateAndScroll(event, 'home', 'download')" class="hidden md:inline-flex items-center justify-center px-5 py-2 text-sm font-semibold text-white bg-gray-900 dark:bg-white dark:text-gray-900 rounded-full hover:scale-105 transition-transform duration-300" data-i18n="nav_download">
+                        Get the App
+                    </a> -->
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" class="lg:hidden w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 transition-colors text-gray-900 dark:text-white relative z-[110]">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white/95 dark:bg-brand-dark/95 backdrop-blur-xl z-[90] hidden flex-col pt-28 px-6 opacity-0 transition-opacity duration-300">
+        <nav class="flex flex-col gap-6 text-xl font-display font-bold text-gray-900 dark:text-white text-center">
+            <a href="#services" onclick="navigateAndScroll(event, 'transport', 'transport-services'); toggleMobileMenu();" data-i18n="nav_services">Services</a>
+            <a href="#about" onclick="navigateAndScroll(event, 'home', 'about'); toggleMobileMenu();" data-i18n="nav_about">About</a>
+            <a href="#trust" onclick="navigateAndScroll(event, 'home', 'trust'); toggleMobileMenu();" data-i18n="nav_trust">Trust & Safety</a>
+            <a href="#features" onclick="navigateAndScroll(event, 'home', 'features'); toggleMobileMenu();" data-i18n="nav_features">Features</a>
+            <a href="#driver" onclick="navigateAndScroll(event, 'home', 'driver'); toggleMobileMenu();" data-i18n="nav_drive">Drive</a>
+            <button onclick="toggleAuthModal(); toggleMobileMenu();" class="text-brand-teal" data-i18n="nav_login">Login</button>
+            <a href="#download" onclick="navigateAndScroll(event, 'home', 'download'); toggleMobileMenu();" class="text-brand-teal" data-i18n="nav_download">Get the App</a>
+        </nav>
+    </div>
+
+    <!-- Auth Modal Overlay -->
+    <div id="auth-modal" class="fixed inset-0 z-[150] hidden opacity-0 transition-opacity duration-300 bg-gray-900/40 dark:bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="auth-glass w-full max-w-md rounded-[2.5rem] p-8 shadow-2xl relative transform scale-95 transition-transform duration-300" id="auth-card">
+            <!-- Close btn -->
+            <button onclick="toggleAuthModal()" class="absolute top-6 right-6 w-8 h-8 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="text-center mb-8">
+                <div class="w-12 h-12 rounded-full bg-brand-teal mx-auto flex items-center justify-center text-white font-bold text-xl mb-4 shadow-lg shadow-[#0F4C75]/40">D+</div>
+                <h3 class="text-2xl font-display font-bold text-gray-900 dark:text-white" id="auth-title" data-i18n="auth_title_login">Welcome Back</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-2" id="auth-subtitle" data-i18n="auth_desc_login">Log in to manage your rides and orders.</p>
+            </div>
+
+            <!-- Login Form -->
+            <form class="space-y-4" id="login-form">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2" data-i18n="auth_email">Email / Phone</label>
+                    <input type="text" class="w-full bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-brand-teal focus:ring-1 focus:ring-brand-teal transition-all text-gray-900 dark:text-white" data-i18n-placeholder="auth_email_ph" placeholder="you@example.com">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2" data-i18n="auth_pass">Password</label>
+                    <input type="password" class="w-full bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-brand-teal focus:ring-1 focus:ring-brand-teal transition-all text-gray-900 dark:text-white" data-i18n-placeholder="auth_pass_ph" placeholder="••••••••">
+                </div>
+                <div class="flex justify-between items-center pt-2">
+                    <label class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-500 cursor-pointer">
+                        <input type="checkbox" class="rounded text-brand-teal focus:ring-brand-teal bg-gray-100 border-gray-300">
+                        <span data-i18n="auth_rem">Remember me</span>
+                    </label>
+                    <a href="#" class="text-sm font-medium text-brand-teal hover:underline" data-i18n="auth_forgot">Forgot Password?</a>
+                </div>
+                <button type="button" class="w-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold py-4 rounded-xl transition-transform hover:scale-[1.02] shadow-xl mt-4" data-i18n="auth_login">
+                    Log In
+                </button>
+                <p class="text-center text-sm text-gray-500 mt-6">
+                    <span data-i18n="auth_no_acc">Don't have an account?</span> <button type="button" onclick="switchAuthMode()" class="text-brand-teal font-semibold hover:underline" data-i18n="auth_signup">Sign Up</button>
+                </p>
+            </form>
+
+            <!-- Signup Form -->
+            <form class="space-y-4 hidden" id="signup-form">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2" data-i18n="auth_fname">First Name</label>
+                        <input type="text" class="w-full bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-brand-teal focus:ring-1 focus:ring-brand-teal transition-all text-gray-900 dark:text-white" placeholder="John">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2" data-i18n="auth_lname">Last Name</label>
+                        <input type="text" class="w-full bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-brand-teal focus:ring-1 focus:ring-brand-teal transition-all text-gray-900 dark:text-white" placeholder="Doe">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2" data-i18n="auth_email">Email / Phone</label>
+                    <input type="text" class="w-full bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-brand-teal focus:ring-1 focus:ring-brand-teal transition-all text-gray-900 dark:text-white" data-i18n-placeholder="auth_email_ph" placeholder="you@example.com">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2" data-i18n="auth_pass">Password</label>
+                    <input type="password" class="w-full bg-white dark:bg-[#0a0a0a] border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-brand-teal focus:ring-1 focus:ring-brand-teal transition-all text-gray-900 dark:text-white" data-i18n-placeholder="auth_pass_cr" placeholder="Create a strong password">
+                </div>
+                <button type="button" class="w-full bg-brand-teal text-white font-bold py-4 rounded-xl transition-transform hover:scale-[1.02] shadow-xl shadow-[#0F4C75]/30 mt-4" data-i18n="auth_create">
+                    Create Account
+                </button>
+                <p class="text-center text-sm text-gray-500 mt-6">
+                    <span data-i18n="auth_has_acc">Already have an account?</span> <button type="button" onclick="switchAuthMode()" class="text-gray-900 dark:text-white font-semibold hover:underline" data-i18n="auth_login">Log In</button>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- MAIN APP ROUTER CONTAINER -->
+    <main id="app-root">
+        
+        <!-- ============================================== -->
+        <!-- 1. HOME PAGE VIEW                              -->
+        <!-- ============================================== -->
+        <div id="home-page" class="page-view active">
+
+            <!-- Hero Section -->
+            <section class="relative pt-40 pb-20 lg:pt-48 lg:pb-32 overflow-hidden sl-pattern">
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-teal/20 rounded-full blur-[120px] opacity-50 dark:opacity-20 animate-pulse-slow pointer-events-none"></div>
+
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="grid lg:grid-cols-12 gap-16 items-center">
+                        
+                        <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-brand-surface/50 text-xs font-semibold tracking-wide uppercase text-gray-500 dark:text-gray-400">
+                                <span class="w-2 h-2 rounded-full bg-brand-teal animate-pulse"></span>
+                                <span data-i18n="hero_badge">Celebrating 35 Years of Trust</span>
+                            </div>
+                            
+                            <h1 class="text-5xl sm:text-7xl lg:text-[5rem] font-display font-extrabold leading-[1.05] tracking-tight text-gray-900 dark:text-white">
+                                <span data-i18n="hero_title_1">Move through</span><br/>
+                                <span data-i18n="hero_title_2">life</span> 
+                                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-teal to-brand-teal">Smarter.</span>
+                            </h1>
+                            
+                            <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed" data-i18n="hero_subtitle">
+                                Not just a cab service, but a connected ecosystem. Powered by Softlogic brands, we seamlessly integrate:
+                            </p>
+
+                            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 py-4 max-w-3xl mx-auto lg:mx-0">
+                                <button onclick="navigateAndScroll(event, 'transport', null)" class="group flex items-center gap-3 px-5 py-3.5 rounded-2xl bg-white dark:bg-brand-card border border-gray-200 dark:border-gray-800 shadow-lg hover:shadow-xl hover:border-brand-teal dark:hover:border-brand-teal hover:-translate-y-1 transition-all cursor-pointer w-full sm:w-auto">
+                                    <div class="w-10 h-10 rounded-full bg-teal-50 dark:bg-brand-teal/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                        <i class="fas fa-car-side text-brand-teal dark:text-white text-lg"></i>
+                                    </div>
+                                    <span class="text-base font-bold text-gray-900 dark:text-white" data-i18n="hero_f1">Transportation</span>
+                                    <i class="fas fa-arrow-right text-gray-400 dark:text-gray-500 group-hover:text-brand-teal transition-colors ml-2 text-sm"></i>
+                                </button>
+                                
+                                <button onclick="navigateAndScroll(event, 'health', null)" class="group flex items-center gap-3 px-5 py-3.5 rounded-2xl bg-white dark:bg-brand-card border border-gray-200 dark:border-gray-800 shadow-lg hover:shadow-xl hover:border-brand-teal dark:hover:border-brand-teal hover:-translate-y-1 transition-all cursor-pointer w-full sm:w-auto">
+                                    <div class="w-10 h-10 rounded-full bg-teal-50 dark:bg-brand-teal/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                        <i class="fas fa-heartbeat text-brand-teal dark:text-white text-lg"></i>
+                                    </div>
+                                    <span class="text-base font-bold text-gray-900 dark:text-white" data-i18n="hero_f2">Healthcare Services</span>
+                                    <i class="fas fa-arrow-right text-gray-400 dark:text-gray-500 group-hover:text-brand-teal transition-colors ml-2 text-sm"></i>
+                                </button>
+
+                                <button onclick="navigateAndScroll(event, 'retail', null)" class="group flex items-center gap-3 px-5 py-3.5 rounded-2xl bg-white dark:bg-brand-card border border-gray-200 dark:border-gray-800 shadow-lg hover:shadow-xl hover:border-brand-teal dark:hover:border-brand-teal hover:-translate-y-1 transition-all cursor-pointer w-full sm:w-auto">
+                                    <div class="w-10 h-10 rounded-full bg-teal-50 dark:bg-brand-teal/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                        <i class="fas fa-shopping-bag text-brand-teal dark:text-white text-lg"></i>
+                                    </div>
+                                    <span class="text-base font-bold text-gray-900 dark:text-white" data-i18n="hero_f3">Retail Shopping</span>
+                                    <i class="fas fa-arrow-right text-gray-400 dark:text-gray-500 group-hover:text-brand-teal transition-colors ml-2 text-sm"></i>
+                                </button>
+
+                                <button onclick="navigateAndScroll(event, 'food', null)" class="group flex items-center gap-3 px-5 py-3.5 rounded-2xl bg-white dark:bg-brand-card border border-gray-200 dark:border-gray-800 shadow-lg hover:shadow-xl hover:border-brand-teal dark:hover:border-brand-teal hover:-translate-y-1 transition-all cursor-pointer w-full sm:w-auto">
+                                    <div class="w-10 h-10 rounded-full bg-teal-50 dark:bg-brand-teal/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                        <i class="fas fa-basket-shopping text-brand-teal dark:text-white text-lg"></i>
+                                    </div>
+                                    <span class="text-base font-bold text-gray-900 dark:text-white" data-i18n="hero_f4">Food & Grocery</span>
+                                    <i class="fas fa-arrow-right text-gray-400 dark:text-gray-500 group-hover:text-brand-teal transition-colors ml-2 text-sm"></i>
+                                </button>
+
+                                <button onclick="navigateAndScroll(event, 'wellness', null)" class="group flex items-center gap-3 px-5 py-3.5 rounded-2xl bg-white dark:bg-brand-card border border-gray-200 dark:border-gray-800 shadow-lg hover:shadow-xl hover:border-brand-teal dark:hover:border-brand-teal hover:-translate-y-1 transition-all cursor-pointer w-full sm:w-auto">
+                                    <div class="w-10 h-10 rounded-full bg-teal-50 dark:bg-brand-teal/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                        <i class="fas fa-leaf text-brand-teal dark:text-white text-lg"></i>
+                                    </div>
+                                    <span class="text-base font-bold text-gray-900 dark:text-white" data-i18n="hero_f5">Wellness Tools</span>
+                                    <i class="fas fa-arrow-right text-gray-400 dark:text-gray-500 group-hover:text-brand-teal transition-colors ml-2 text-sm"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                                <a href="#download" onclick="navigateAndScroll(event, 'home', 'download')" class="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-full font-semibold hover:-translate-y-1 transition-transform duration-300 shadow-xl shadow-gray-900/20 dark:shadow-white/10">
+                                    <i class="fab fa-apple text-xl"></i>
+                                    <span data-i18n="btn_appstore">App Store</span>
+                                </a>
+                                <a href="#download" onclick="navigateAndScroll(event, 'home', 'download')" class="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-white dark:bg-brand-surface border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white rounded-full font-semibold hover:-translate-y-1 transition-transform duration-300">
+                                    <i class="fab fa-google-play text-brand-teal text-xl"></i>
+                                    <span data-i18n="btn_playstore">Google Play</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Product Mockup (Pure CSS Phone) -->
+                        <div class="lg:col-span-5 relative hidden lg:flex justify-center items-center h-[650px] perspective-1000">
+                            <div class="absolute top-20 -left-12 glass-panel p-4 rounded-2xl z-30 animate-float flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-brand-teal/10 flex items-center justify-center text-brand-teal text-xl">
+                                    <i class="fas fa-shield"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-bold dark:text-white" data-i18n="float_safe">Verified Driver</p>
+                                    <p class="text-xs text-gray-500">Arriving in 3 mins</p>
+                                </div>
+                            </div>
+
+                            <div class="device-mockup relative w-[300px] h-[600px] rounded-[3rem] border-[12px] border-gray-100 dark:border-gray-900 bg-white dark:bg-[#0a0a0a] z-20 overflow-hidden transform rotate-[-5deg] hover:rotate-0 transition-transform duration-700 ease-out">
+                                <div class="absolute top-2 left-1/2 -translate-x-1/2 w-28 h-7 bg-gray-100 dark:bg-black rounded-full z-50"></div>
+                                
+                                <img src="/dailygo/images/screen.png" alt="DailyGo+ App Interface" class="w-full h-full object-cover object-top relative z-10">
+                            </div>
+
+                            <div class="absolute bottom-20 -right-8 glass-panel p-4 rounded-2xl z-30 animate-float-delayed flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-brand-teal/10 flex items-center justify-center text-brand-teal text-xl">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-bold dark:text-white" data-i18n="float_shop">Glomark Direct</p>
+                                    <p class="text-xs text-gray-500">Groceries delivered</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Infinite Scroll Partners Marquee -->
+            <section class="py-8 border-y border-gray-200 dark:border-gray-800 bg-white dark:bg-[#0a0a0a] overflow-hidden flex flex-col items-center">
+                <div class="w-full overflow-hidden relative">
+                    <div class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white dark:from-[#0a0a0a] to-transparent z-10 pointer-events-none"></div>
+                    <div class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white dark:from-[#0a0a0a] to-transparent z-10 pointer-events-none"></div>
+                    
+                    <div class="flex" style="animation: scroll-infinite 60s linear infinite;">
+                        <div class="flex items-center justify-around gap-16 px-8 text-xl md:text-2xl font-display font-bold text-gray-400 dark:text-gray-600 flex-shrink-0" style="min-width: 100%;">
+                            <span class="hover:text-brand-teal transition-colors duration-300 cursor-default">Softlogic</span>
+                            <span class="hover:text-brand-teal transition-colors duration-300 cursor-default">Glomark</span>
+                            <span class="hover:text-brand-teal transition-colors duration-300 cursor-default">ODEL</span>
+                            <span class="hover:text-brand-teal transition-colors duration-300 cursor-default">Asiri Health</span>
+                            <span class="hover:text-brand-teal transition-colors duration-300 cursor-default">Softlogic Life</span>
+                            <span class="hover:text-brand-teal transition-colors duration-300 cursor-default">Softlogic Finance</span>
+                        </div>
+                        <div class="flex items-center justify-around gap-16 px-8 text-xl md:text-2xl font-display font-bold text-gray-400 dark:text-gray-600 flex-shrink-0" style="min-width: 100%;">
+                            <span class="hover:text-brand-teal transition-colors duration-300 cursor-default">Softlogic</span>
+                            <span class="hover:text-brand-teal transition-colors duration-300 cursor-default">Glomark</span>
+                            <span class="hover:text-brand-teal transition-colors duration-300 cursor-default">ODEL</span>
+                            <span class="hover:text-brand-teal transition-colors duration-300 cursor-default">Asiri Health</span>
+                            <span class="hover:text-brand-teal transition-colors duration-300 cursor-default">Softlogic Life</span>
+                            <span class="hover:text-brand-teal transition-colors duration-300 cursor-default">Softlogic Finance</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About -->
+            <section id="about" class="py-24 bg-white dark:bg-[#050505] border-t border-gray-100 dark:border-gray-900">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid lg:grid-cols-2 gap-16 items-center">
+                        <div>
+                            <h2 class="text-4xl md:text-5xl font-display font-bold text-gray-900 dark:text-white mb-6" data-i18n="about_title">More Than a Ride.</h2>
+                            <p class="text-lg text-gray-600 dark:text-gray-400 mb-6 font-light leading-relaxed" data-i18n="about_desc1">
+                                DailyGo+ is a revolutionary ride-hailing and lifestyle super app built for the Sri Lankan market. We go beyond being just a cab service to provide a fully connected ecosystem.
+                            </p>
+                            <p class="text-lg text-gray-600 dark:text-gray-400 mb-8 font-light leading-relaxed" data-i18n="about_desc2">
+                                Powered entirely by the prestigious Softlogic ecosystem, we seamlessly integrate transportation with premium retail shopping, grocery delivery, and world-class healthcare services.
+                            </p>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-start gap-4 p-4 rounded-2xl bg-gray-50 dark:bg-brand-surface border border-gray-200 dark:border-gray-800 transition-colors">
+                                    <div class="w-10 h-10 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center shrink-0 text-brand-teal"><i class="fas fa-tag"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-900 dark:text-white" data-i18n="about_point1_title">Strictly No Surge Pricing</h4>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1" data-i18n="about_point1_desc">Prices stay exactly the same during peak hours, rain, or high demand.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-4 p-4 rounded-2xl bg-gray-50 dark:bg-brand-surface border border-gray-200 dark:border-gray-800 transition-colors">
+                                    <div class="w-10 h-10 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center shrink-0 text-brand-teal"><i class="fas fa-shield-alt"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-900 dark:text-white" data-i18n="about_point2_title">Unrivaled Safety Focus</h4>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1" data-i18n="about_point2_desc">Built-in emergency tracking, verified professional drivers, and female-only modes.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="relative">
+                            <div class="absolute -inset-4 bg-gradient-to-r from-brand-teal/20 to-brand-teal/20 blur-2xl rounded-[3rem] opacity-50"></div>
+                            <div class="relative bg-white dark:bg-brand-card border border-gray-200 dark:border-gray-800 rounded-[3rem] p-10 shadow-2xl overflow-hidden">
+                                <div class="absolute top-0 right-0 w-32 h-32 bg-brand-teal/10 rounded-bl-full"></div>
+                                <h3 class="text-2xl font-display font-bold text-gray-900 dark:text-white mb-8" data-i18n="vis_title">Our Vision & Mission</h3>
+                                
+                                <div class="relative z-10 mb-8 border-l-2 border-brand-teal pl-6">
+                                    <i class="fas fa-eye text-brand-teal mb-2 text-xl"></i>
+                                    <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2" data-i18n="vis_v">Vision</h4>
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed" data-i18n="vis_v_desc">To become the ultimate, most trusted digital lifestyle platform that connects every aspect of daily living intelligently and safely.</p>
+                                </div>
+                                
+                                <div class="relative z-10 border-l-2 border-brand-teal pl-6">
+                                    <i class="fas fa-bullseye text-brand-teal mb-2 text-xl"></i>
+                                    <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2" data-i18n="vis_m">Mission</h4>
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed" data-i18n="vis_m_desc">Empower users with reliable, transparent, surge-free transport while integrating unparalleled retail and healthcare access through the Softlogic network.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Full-Width Banner (below More Than a Ride) -->
+            <section class="relative w-full overflow-hidden">
+                <div class="absolute inset-0 bg-black/40"></div>
+                <!-- 35+ Years Overlay Text (Top Right) -->
+                <div class="absolute top-6 right-6 z-20 text-right">
+                    <p class="text-white/80 text-lg font-semibold">35+ Years</p>
+                    <p class="text-white/60 text-md">Of Trusted Service</p>
+                </div>
+                <div class="h-[320px] md:h-[420px] bg-cover bg-center bg-no-repeat" style="background-image: url('/dailygo/images/fotografo-samuel-cruz-wbINgkCH6F0-unsplash.jpg');"></div>
+                <div class="absolute inset-0 flex items-center justify-center p-6">
+                    <div class="text-center text-white max-w-3xl">
+                        <h3 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold tracking-tight " style="line-height: 70px;">Experience DailyGo+ <br> Like Never Before</h3>
+                        <p class="mt-6 text-base md:text-lg text-white/90">
+                            <span class="font-semibold text-white">Celebrating 35 Years of Trust</span> - A single ecosystem of rides, retail, groceries and wellness - all powered by Softlogic’s trusted network.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trust & Safety -->
+            <section id="trust" class="py-24 bg-gray-50 dark:bg-brand-dark sl-pattern border-t border-gray-200 dark:border-gray-900">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid lg:grid-cols-2 gap-16 items-center">
+                        <div class="order-2 lg:order-1 relative p-10 bg-white dark:bg-brand-card rounded-[3rem] border border-gray-100 dark:border-gray-800 shadow-sm">
+                            <div class="absolute -top-6 -left-6 w-20 h-20 bg-brand-teal rounded-full flex items-center justify-center text-white text-3xl shadow-xl shadow-[#0F4C75]/40">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3 class="text-2xl font-display font-bold text-gray-900 dark:text-white mb-6 mt-4" data-i18n="trust_std">Platform Safety Standards</h3>
+                            
+                            <ul class="space-y-6">
+                                <li class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-full bg-gray-50 dark:bg-brand-surface border border-gray-200 dark:border-gray-700 flex items-center justify-center shrink-0 text-brand-teal"><i class="fas fa-id-card"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-900 dark:text-white" data-i18n="tr_bg_t">Rigorous Background Checks</h4>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400" data-i18n="tr_bg_d">Every driver undergoes strict identity and criminal record screening.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-full bg-gray-50 dark:bg-brand-surface border border-gray-200 dark:border-gray-700 flex items-center justify-center shrink-0 text-brand-teal"><i class="fas fa-chalkboard-teacher"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-900 dark:text-white" data-i18n="tr_tr_t">Professional Training</h4>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400" data-i18n="tr_tr_d">Drivers must pass certified etiquette and safe driving courses.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-full bg-gray-50 dark:bg-brand-surface border border-gray-200 dark:border-gray-700 flex items-center justify-center shrink-0 text-brand-teal"><i class="fas fa-car-crash"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-900 dark:text-white" data-i18n="tr_ins_t">Comprehensive Insurance</h4>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400" data-i18n="tr_ins_d">All rides are backed by robust Softlogic Life insurance coverage.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-4">
+                                    <div class="w-10 h-10 rounded-full bg-gray-50 dark:bg-brand-surface border border-gray-200 dark:border-gray-700 flex items-center justify-center shrink-0 text-brand-teal"><i class="fas fa-clipboard-check"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-900 dark:text-white" data-i18n="tr_veh_t">Regular Vehicle Inspections</h4>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400" data-i18n="tr_veh_d">Mandatory physical and mechanical checks for fleet safety.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="order-1 lg:order-2">
+                            <h2 class="text-4xl md:text-5xl font-display font-bold text-gray-900 dark:text-white mb-6" data-i18n="trust_title">Trust is Our Foundation.</h2>
+                            <p class="text-lg text-gray-600 dark:text-gray-400 font-light leading-relaxed mb-8" data-i18n="trust_desc">
+                                We don't just move people; we protect them. From our dedicated emergency SOS button to real-time GPS tracking and female-only driver options, your security is engineered into every line of code in our app.
+                            </p>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="p-4 rounded-xl bg-teal-50 dark:bg-teal-900/10 border border-teal-100 dark:border-teal-900/30">
+                                    <h4 class="text-2xl font-bold text-brand-teal mb-1">100%</h4>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400 font-semibold uppercase tracking-wider" data-i18n="tr_ver_fleet">Verified Fleet</p>
+                                </div>
+                                <div class="p-4 rounded-xl rgb(240 253 250 / var(--tw-bg-opacity, 1)) dark:bg-orange-900/10 border border-orange-100 dark:border-orange-900/30">
+                                    <h4 class="text-2xl font-bold text-brand-teal mb-1">24/7</h4>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400 font-semibold uppercase tracking-wider" data-i18n="tr_live_sup">Live Support</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Banner Bridge -->
+            <section class="w-full h-[60vh] min-h-[400px] relative flex items-center justify-center overflow-hidden border-y border-gray-200 dark:border-gray-800">
+                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&q=80&w=2000')] bg-cover bg-center bg-no-repeat bg-fixed transform scale-105"></div>
+                <div class="absolute inset-0 bg-gray-900/50 dark:bg-black/60 mix-blend-multiply"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-teal/80 via-transparent to-transparent"></div>
+                <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-4 drop-shadow-lg" data-i18n="banner_title">Connected to Your City.</h2>
+                    <p class="text-xl md:text-2xl text-gray-100 font-light drop-shadow-md" data-i18n="banner_subtitle">Wherever you go, we are already there.</p>
+                </div>
+            </section>
+
+            <!-- Special Features -->
+            <section id="features" class="relative py-32 mesh-bg overflow-hidden flex flex-col items-center justify-center">
+                <div class="absolute inset-0 bg-white/50 dark:bg-black/40 backdrop-blur-[2px]"></div>
+
+                <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 w-full">
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <h2 class="text-4xl md:text-5xl font-display font-bold text-gray-900 dark:text-white mb-6 tracking-tight" data-i18n="features_title">
+                            Features That Redefine Lifestyle.
+                        </h2>
+                        <p class="text-xl text-gray-600 dark:text-gray-300 font-light" data-i18n="features_subtitle">
+                            The platform's unique capabilities blend smart transport with daily conveniences.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-16">
+                        <div class="glass-panel p-10 rounded-[2.5rem] hover:-translate-y-2 transition-transform duration-500 group">
+                            <div class="w-16 h-16 rounded-2xl bg-gray-900/5 dark:bg-white/10 flex items-center justify-center mb-8 group-hover:bg-brand-teal/20 dark:group-hover:bg-brand-teal/50 transition-colors duration-500">
+                                <i class="fas fa-microchip text-2xl text-brand-teal dark:text-white"></i>
+                            </div>
+                            <h3 class="text-2xl font-display font-bold text-gray-900 dark:text-white mb-4" data-i18n="feat_tech_title">Smart Technology</h3>
+                            <ul class="space-y-3 text-gray-600 dark:text-gray-300 font-light">
+                                <li class="flex items-start gap-3"><i class="fas fa-check-circle text-brand-teal mt-1"></i> <span><strong class="text-gray-900 dark:text-white">AI Ride Matching:</strong> Smart algorithms pair you with the best driver.</span></li>
+                                <li class="flex items-start gap-3"><i class="fas fa-check-circle text-brand-teal mt-1"></i> <span><strong class="text-gray-900 dark:text-white">Quick Booking:</strong> Order your favorite routes in just two taps.</span></li>
+                                <li class="flex items-start gap-3"><i class="fas fa-check-circle text-brand-teal mt-1"></i> <span><strong class="text-gray-900 dark:text-white">Live Dashboard:</strong> Real-time mapping and vehicle tracking.</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="glass-panel p-10 rounded-[2.5rem] hover:-translate-y-2 transition-transform duration-500 group">
+                            <div class="w-16 h-16 rounded-2xl bg-gray-900/5 dark:bg-white/10 flex items-center justify-center mb-8 group-hover:bg-brand-teal/20 dark:group-hover:bg-brand-teal/50 transition-colors duration-500">
+                                <i class="fas fa-gem text-2xl text-brand-teal dark:text-white"></i>
+                            </div>
+                            <h3 class="text-2xl font-display font-bold text-gray-900 dark:text-white mb-4" data-i18n="feat_life_title">Unique Lifestyle Features</h3>
+                            <ul class="space-y-3 text-gray-600 dark:text-gray-300 font-light">
+                                <li class="flex items-start gap-3"><i class="fas fa-star text-brand-teal mt-1"></i> <span><strong class="text-gray-900 dark:text-white">Barbie AI Fashion Assistant:</strong> Direct ODEL shopping integration.</span></li>
+                                <li class="flex items-start gap-3"><i class="fas fa-star text-brand-teal mt-1"></i> <span><strong class="text-gray-900 dark:text-white">Smart Wellness:</strong> Personalized diet planner and tips.</span></li>
+                                <li class="flex items-start gap-3"><i class="fas fa-star text-brand-teal mt-1"></i> <span><strong class="text-gray-900 dark:text-white\">Grocery & Pharmacy:</strong> Glomark and medical deliveries to your door.</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How It Works Bridge -->
+            <section class="py-24 bg-white dark:bg-[#050505] border-y border-gray-100 dark:border-gray-900">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white" data-i18n="hw_title">Simply How It Works</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-8 text-center relative">
+                        <div class="hidden md:block absolute top-10 left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-gray-200 via-brand-teal to-gray-200 dark:from-gray-800 dark:via-brand-teal dark:to-gray-800 z-0"></div>
+                        
+                        <div class="relative z-10 flex flex-col items-center group">
+                            <div class="w-20 h-20 rounded-full bg-gray-50 dark:bg-brand-surface border border-gray-200 dark:border-gray-800 shadow-sm flex items-center justify-center mb-4 text-brand-teal font-bold text-xl group-hover:scale-110 transition-all duration-300">1</div>
+                            <h4 class="text-sm font-bold dark:text-white mb-1">Download App</h4>
+                            <p class="text-gray-500 dark:text-gray-400 text-xs">Get DailyGo+ & register.</p>
+                        </div>
+                        <div class="relative z-10 flex flex-col items-center group">
+                            <div class="w-20 h-20 rounded-full bg-gray-50 dark:bg-brand-surface border border-gray-200 dark:border-gray-800 shadow-sm flex items-center justify-center mb-4 text-brand-teal font-bold text-xl group-hover:scale-110 transition-all duration-300">2</div>
+                            <h4 class="text-sm font-bold dark:text-white mb-1">Choose Ride</h4>
+                            <p class="text-gray-500 dark:text-gray-400 text-xs">Select your ideal vehicle.</p>
+                        </div>
+                        <div class="relative z-10 flex flex-col items-center group">
+                            <div class="w-20 h-20 rounded-full bg-gray-50 dark:bg-brand-surface border border-gray-200 dark:border-gray-800 shadow-sm flex items-center justify-center mb-4 text-brand-teal font-bold text-xl group-hover:scale-110 transition-all duration-300">3</div>
+                            <h4 class="text-sm font-bold dark:text-white mb-1">Book Driver</h4>
+                            <p class="text-gray-500 dark:text-gray-400 text-xs">Instantly connect to a pro.</p>
+                        </div>
+                        <div class="relative z-10 flex flex-col items-center group">
+                            <div class="w-20 h-20 rounded-full bg-gray-50 dark:bg-brand-surface border border-gray-200 dark:border-gray-800 shadow-sm flex items-center justify-center mb-4 text-brand-teal font-bold text-xl group-hover:scale-110 transition-all duration-300">4</div>
+                            <h4 class="text-sm font-bold dark:text-white mb-1">Track Ride</h4>
+                            <p class="text-gray-500 dark:text-gray-400 text-xs">Real-time GPS tracking.</p>
+                        </div>
+                        <div class="relative z-10 flex flex-col items-center group col-span-2 md:col-span-1">
+                            <div class="w-20 h-20 rounded-full bg-gray-50 dark:bg-brand-surface border border-gray-200 dark:border-gray-800 shadow-sm flex items-center justify-center mb-4 text-brand-teal font-bold text-xl group-hover:scale-110 transition-all duration-300">5</div>
+                            <h4 class="text-sm font-bold dark:text-white mb-1">Pay Easily</h4>
+                            <p class="text-gray-500 dark:text-gray-400 text-xs">Cash, card, or wallet.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Professional Driver Partner Section -->
+            <section id="driver" class="py-32 bg-gray-50 dark:bg-[#0a0a0a] sl-pattern border-y border-gray-200 dark:border-gray-900">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-gray-900 dark:bg-brand-card rounded-[3rem] overflow-hidden flex flex-col lg:flex-row shadow-2xl">
+                        <!-- Content Side -->
+                        <div class="lg:w-1/2 p-12 lg:p-20 flex flex-col justify-center relative overflow-hidden">
+                            <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-brand-teal/20 rounded-full blur-[80px]"></div>
+                            <div class="relative z-10">
+                                <div class="inline-block px-4 py-1.5 rounded-full border border-gray-700 text-brand-teal text-xs font-bold tracking-widest uppercase mb-6 self-start" data-i18n="drv_part">Partner Program</div>
+                                <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-6 leading-tight" data-i18n="driver_title">Become a DailyGo+ Driver.</h2>
+                                
+                                <ul class="space-y-6 mb-10 text-gray-300 font-light text-lg">
+                                    <li class="flex items-center gap-4">
+                                        <div class="w-8 h-8 rounded-full bg-brand-teal/20 text-brand-teal flex items-center justify-center shrink-0"><i class="fas fa-check text-sm"></i></div>
+                                        <span data-i18n="drv_b1">Industry-lowest commission rates.</span>
+                                    </li>
+                                    <li class="flex items-center gap-4">
+                                        <div class="w-8 h-8 rounded-full bg-brand-teal/20 text-brand-teal flex items-center justify-center shrink-0"><i class="fas fa-check text-sm"></i></div>
+                                        <span data-i18n="drv_b2">Monthly salary opportunities & bonuses.</span>
+                                    </li>
+                                    <li class="flex items-center gap-4">
+                                        <div class="w-8 h-8 rounded-full bg-brand-teal/20 text-brand-teal flex items-center justify-center shrink-0"><i class="fas fa-check text-sm"></i></div>
+                                        <span data-i18n="drv_b3">Softlogic Life Insurance & Healthcare benefits.</span>
+                                    </li>
+                                    <li class="flex items-center gap-4">
+                                        <div class="w-8 h-8 rounded-full bg-brand-teal/20 text-brand-teal flex items-center justify-center shrink-0"><i class="fas fa-check text-sm"></i></div>
+                                        <span data-i18n="drv_b4">Free professional training program.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Form Side -->
+                        <div class="lg:w-1/2 bg-white dark:bg-[#151515] p-12 lg:p-20 border-l border-gray-100 dark:border-gray-800">
+                            <h3 class="text-2xl font-display font-bold text-gray-900 dark:text-white mb-8" data-i18n="driver_form_title">Quick Registration</h3>
+                            <form class="space-y-5">
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2" data-i18n="form_fname">Full Name</label>
+                                    <input type="text" class="w-full bg-gray-50 dark:bg-black border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-brand-teal focus:ring-1 focus:ring-brand-teal transition-all text-gray-900 dark:text-white" placeholder="John Doe">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2" data-i18n="form_phone">Mobile Number</label>
+                                    <input type="tel" class="w-full bg-gray-50 dark:bg-black border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-brand-teal focus:ring-1 focus:ring-brand-teal transition-all text-gray-900 dark:text-white" placeholder="+94 7X XXX XXXX">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2" data-i18n="form_vtype">Vehicle Type</label>
+                                    <select class="w-full bg-gray-50 dark:bg-black border border-gray-200 dark:border-gray-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-brand-teal focus:ring-1 focus:ring-brand-teal transition-all text-gray-900 dark:text-white appearance-none cursor-pointer">
+                                        <option data-i18n="veh_car">Car / Mini / Van</option>
+                                        <option data-i18n="veh_tuk">Three Wheeler</option>
+                                        <option data-i18n="veh_bike">Motorbike</option>
+                                    </select>
+                                </div>
+                                <button type="button" class="w-full bg-brand-teal hover:bg-[#0A3A5C] text-white font-bold py-4 rounded-xl transition-colors mt-4 shadow-lg shadow-[#0F4C75]/30" data-i18n="driver_btn">
+                                    Submit Application
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- App Download & Contact Connect Section -->
+            <section id="download" class="py-24 bg-brand-teal relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-white/10 to-transparent"></div>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
+                    
+                    <div class="md:w-1/2 text-white">
+                        <h2 class="text-4xl md:text-5xl font-display font-bold mb-6" data-i18n="dl_title">Scan & Go.</h2>
+                        <p class="text-lg text-teal-50 mb-8 max-w-md font-light" data-i18n="dl_desc">Point your phone camera at the QR code to instantly download the DailyGo+ app on iOS or Android.</p>
+                        
+                        <div class="flex gap-4">
+                            <div class="bg-black text-white px-5 py-2.5 rounded-lg flex items-center shadow-lg border border-gray-800">
+                                <i class="fab fa-apple text-xl mr-3"></i>
+                                <div class="text-left leading-tight">
+                                    <div class="text-[10px] text-gray-400">Download on the</div>
+                                    <div class="font-semibold text-sm">App Store</div>
+                                </div>
+                            </div>
+                            <div class="bg-black text-white px-5 py-2.5 rounded-lg flex items-center shadow-lg border border-gray-800">
+                                <i class="fab fa-google-play text-brand-teal text-xl mr-3"></i>
+                                <div class="text-left leading-tight">
+                                    <div class="text-[10px] text-gray-400">GET IT ON</div>
+                                    <div class="font-semibold text-sm">Google Play</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- QR Code Card -->
+                    <div class="md:w-auto bg-white dark:bg-brand-card p-6 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-800 flex flex-col items-center transform rotate-2 hover:rotate-0 transition-transform duration-500">
+                        <div class="w-48 h-48 bg-white rounded-xl border border-gray-200 dark:border-gray-800 flex items-center justify-center mb-4 p-2 relative">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" alt="Download QR Code" class="w-full h-full object-contain">
+                            <div class="absolute w-10 h-10 bg-white rounded-md flex items-center justify-center font-bold text-sm text-brand-teal border border-gray-200 shadow-md">Go+</div>
+                        </div>
+                        <p class="text-xs font-semibold text-gray-500 uppercase tracking-widest text-center" data-i18n="dl_scan">Scan to Download</p>
+                    </div>
+                </div>
+            </section>
+
+        </div> <!-- END HOME PAGE VIEW -->
+
+
+        <!-- ============================================== -->
+        <!-- 2. TRANSPORTATION RIDE-HAILING VIEW            -->
+        <!-- ============================================== -->
+        <div id="transport-page" class="page-view bg-gray-50 dark:bg-[#050505] min-h-screen flex flex-col">
+            <!-- Transport Internal Header -->
+            <div class="sticky top-0 z-40 bg-white/90 dark:bg-[#0a0a0a]/90 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 transition-colors w-full">
+                <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <button onclick="navigateAndScroll(event, 'home', null)" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-brand-teal hover:text-white transition-colors">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <div class="font-display font-bold text-2xl text-gray-900 dark:text-white" data-i18n="tp_header_title">
+                            DailyGo+ <span class="text-brand-teal">Rides</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <button onclick="toggleAuthModal()" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-brand-teal transition-colors">
+                            <i class="fas fa-user"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Uber-Style Hero Workspace -->
+            <section class="relative w-full h-[calc(100vh-73px)] lg:h-[calc(100vh-73px)] min-h-[600px] flex flex-col lg:flex-row border-b border-gray-200 dark:border-gray-900 overflow-hidden">
+                
+                <!-- Left Sidebar: Booking Form -->
+                <div class="w-full lg:w-[450px] xl:w-[500px] bg-white dark:bg-brand-card shadow-[10px_0_30px_rgba(0,0,0,0.05)] dark:shadow-[10px_0_30px_rgba(0,0,0,0.5)] z-20 flex flex-col h-full overflow-y-auto pt-8">
+                    <div class="px-8 pb-6">
+                        <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white mb-6 tracking-tight" data-i18n="tp_title">Go anywhere with DailyGo+</h2>
+                        
+                        <!-- Toggle -->
+                        <div class="flex bg-gray-100 dark:bg-black p-1 rounded-xl mb-6">
+                            <button class="flex-1 py-2.5 bg-white dark:bg-brand-card rounded-lg shadow-sm font-semibold text-gray-900 dark:text-white text-sm transition-all" data-i18n="tp_ride">Ride</button>
+                            <button class="flex-1 py-2.5 rounded-lg font-semibold text-gray-500 dark:text-gray-400 text-sm hover:text-gray-900 dark:hover:text-white transition-all" data-i18n="tp_schedule">Schedule</button>
+                        </div>
+
+                        <!-- Inputs -->
+                        <div class="relative mb-6">
+                            <!-- Visual connecting line -->
+                            <div class="absolute left-5 top-0 bottom-0 flex flex-col items-center justify-center py-6 pointer-events-none">
+                                <div class="w-2 h-2 bg-gray-900 dark:bg-white rounded-full"></div>
+                                <div class="w-[2px] h-12 bg-gray-300 dark:bg-gray-700 my-1"></div>
+                                <div class="w-2 h-2 bg-brand-teal rounded-sm"></div>
+                            </div>
+                            
+                            <div class="mb-3 relative group">
+                                <input type="text" class="w-full bg-gray-50 dark:bg-black border border-transparent dark:border-gray-800 rounded-xl pl-12 pr-10 py-3.5 focus:outline-none focus:ring-2 focus:ring-brand-teal focus:bg-white dark:focus:bg-brand-surface transition-all text-gray-900 dark:text-white font-medium" data-i18n-placeholder="tp_loc_pickup" placeholder="Pickup location" value="">
+                                <button class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-brand-teal"><i class="fas fa-location-crosshairs"></i></button>
+                            </div>
+                            
+                            <div class="relative group">
+                                <input type="text" class="w-full bg-gray-50 dark:bg-black border border-transparent dark:border-gray-800 rounded-xl pl-12 pr-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-brand-teal focus:bg-white dark:focus:bg-brand-surface transition-all text-gray-900 dark:text-white font-medium" data-i18n-placeholder="tp_loc_drop" placeholder="Where to?">
+                            </div>
+                        </div>
+
+                        <button onclick="simulateRideSearch()" id="search-ride-btn" class="w-full bg-brand-teal hover:bg-[#0A3A5C] text-white font-bold py-4 rounded-xl transition-colors shadow-lg shadow-[#0F4C75]/30 text-lg flex items-center justify-center gap-2">
+                            <span data-i18n="tp_btn">Search Prices</span>
+                        </button>
+                    </div>
+
+                    <!-- Divider -->
+                    <div class="h-2 w-full bg-gray-50 dark:bg-[#0a0a0a]"></div>
+
+                    <!-- Default View: Saved Places -->
+                    <div id="saved-places" class="px-8 py-6 flex-1 bg-white dark:bg-brand-card">
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-brand-surface p-3 rounded-xl transition-colors">
+                                <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-black flex items-center justify-center text-gray-600 dark:text-gray-400"><i class="fas fa-home"></i></div>
+                                <div>
+                                    <p class="font-semibold text-gray-900 dark:text-white" data-i18n="tp_home">Home</p>
+                                    <p class="text-xs text-gray-500" data-i18n="tp_add_home">Add home address</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-brand-surface p-3 rounded-xl transition-colors">
+                                <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-black flex items-center justify-center text-gray-600 dark:text-gray-400"><i class="fas fa-briefcase"></i></div>
+                                <div>
+                                    <p class="font-semibold text-gray-900 dark:text-white" data-i18n="tp_work">Work</p>
+                                    <p class="text-xs text-gray-500" data-i18n="tp_add_work">Add work address</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 cursor-pointer hover:bg-gray-50 dark:hover:bg-brand-surface p-3 rounded-xl transition-colors">
+                                <div class="w-10 h-10 rounded-full bg-gray-100 dark:bg-black flex items-center justify-center text-gray-600 dark:text-gray-400"><i class="fas fa-clock-rotate-left"></i></div>
+                                <div>
+                                    <p class="font-semibold text-gray-900 dark:text-white">Glomark Supermarket</p>
+                                    <p class="text-xs text-gray-500">Recent destination</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active View: Ride Options -->
+                    <div id="ride-options" class="px-6 py-4 flex-1 bg-white dark:bg-brand-card hidden">
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4 px-2">Available Rides</p>
+                        <div class="space-y-3">
+                            <div class="border-2 border-brand-teal bg-teal-50/50 dark:bg-teal-900/10 p-4 rounded-2xl flex items-center justify-between cursor-pointer transition-all">
+                                <div class="flex items-center gap-4">
+                                    <img src="https://img.icons8.com/color/48/000000/sedan.png" alt="Car" class="w-12 h-12 object-contain">
+                                    <div>
+                                        <h4 class="font-bold text-gray-900 dark:text-white flex items-center gap-2">Economy <i class="fas fa-user text-xs text-gray-400"></i><span class="text-xs text-gray-400">4</span></h4>
+                                        <p class="text-xs text-brand-teal font-medium">3 min away • 14:24</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-bold text-lg text-gray-900 dark:text-white">Rs. 450</p>
+                                </div>
+                            </div>
+                            <div class="border border-gray-200 dark:border-gray-800 hover:border-pink-500 dark:hover:border-pink-500 p-4 rounded-2xl flex items-center justify-between cursor-pointer transition-all">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-full bg-pink-100 dark:bg-pink-900/30 text-pink-500 flex items-center justify-center text-xl"><i class="fas fa-venus"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-900 dark:text-white flex items-center gap-2">DailyGo+ HER <i class="fas fa-user text-xs text-gray-400"></i><span class="text-xs text-gray-400">4</span></h4>
+                                        <p class="text-xs text-gray-500">Female driver • 5 min</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-bold text-lg text-gray-900 dark:text-white">Rs. 500</p>
+                                </div>
+                            </div>
+                            <div class="border border-gray-200 dark:border-gray-800 hover:border-brand-orange dark:hover:border-brand-orange p-4 rounded-2xl flex items-center justify-between cursor-pointer transition-all">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/30 text-brand-orange flex items-center justify-center text-xl"><i class="fas fa-taxi"></i></div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-900 dark:text-white flex items-center gap-2">Three Wheeler <i class="fas fa-user text-xs text-gray-400"></i><span class="text-xs text-gray-400">3</span></h4>
+                                        <p class="text-xs text-gray-500">Fastest arrival • 1 min</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-bold text-lg text-gray-900 dark:text-white">Rs. 200</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <button class="w-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold py-4 rounded-xl shadow-xl hover:scale-[1.02] transition-transform text-lg flex items-center justify-center gap-2">
+                                Confirm Economy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Map Area Placeholder -->
+                <div class="flex-1 bg-gray-200 dark:bg-gray-900 relative min-h-[500px] lg:min-h-full z-10 order-first lg:order-last">
+                    <!-- Google Maps Embed Centered on Colombo Sri Lanka -->
+                    <iframe src="https://maps.google.com/maps?q=Colombo,%20Sri%20Lanka&t=&z=13&ie=UTF8&iwloc=&output=embed" class="w-full h-full border-0 filter dark:invert dark:hue-rotate-180 dark:opacity-80" style="pointer-events: auto;" allowfullscreen="" loading="lazy"></iframe>
+                    
+                    <!-- Overlays to blend the static map with the app -->
+                    <div class="absolute inset-0 bg-brand-teal/5 mix-blend-overlay pointer-events-none"></div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-white/30 dark:from-black/50 to-transparent pointer-events-none"></div>
+                    
+                    <div class="absolute top-4 right-4 glass-panel p-3 rounded-xl shadow-lg flex flex-col gap-2 pointer-events-auto">
+                        <button class="w-10 h-10 bg-white dark:bg-brand-surface rounded-lg flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-brand-teal shadow-sm"><i class="fas fa-location-arrow"></i></button>
+                        <button class="w-10 h-10 bg-white dark:bg-brand-surface rounded-lg flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-brand-teal shadow-sm"><i class="fas fa-plus"></i></button>
+                        <button class="w-10 h-10 bg-white dark:bg-brand-surface rounded-lg flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-brand-teal shadow-sm"><i class="fas fa-minus"></i></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Overview (Transport Page) -->
+            <section id="transport-services" class="py-24 bg-gray-50 dark:bg-brand-dark sl-pattern border-t border-gray-200 dark:border-gray-900">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl md:text-5xl font-display font-bold text-gray-900 dark:text-white mb-6" data-i18n="services_title">Ride Your Way.</h2>
+                        <p class="text-xl text-gray-500 dark:text-gray-400 font-light max-w-2xl mx-auto" data-i18n="services_subtitle">A massive, specialized fleet tailored to fit every lifestyle and budget requirement.</p>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-3 mb-16">
+                        <div class="px-5 py-2.5 rounded-full bg-white dark:bg-[#050505] border border-gray-200 dark:border-gray-800 text-sm font-semibold flex items-center gap-2 shadow-sm"><i class="fas fa-car text-brand-teal"></i> <span data-i18n="veh_car">Car</span></div>
+                        <div class="px-5 py-2.5 rounded-full bg-white dark:bg-[#050505] border border-gray-200 dark:border-gray-800 text-sm font-semibold flex items-center gap-2 shadow-sm"><i class="fas fa-car-side text-brand-teal"></i> <span data-i18n="veh_mini">Mini</span></div>
+                        <div class="px-5 py-2.5 rounded-full bg-white dark:bg-[#050505] border border-gray-200 dark:border-gray-800 text-sm font-semibold flex items-center gap-2 shadow-sm"><i class="fas fa-shuttle-van text-brand-teal"></i> <span data-i18n="veh_van">Van</span></div>
+                        <div class="px-5 py-2.5 rounded-full bg-white dark:bg-[#050505] border border-gray-200 dark:border-gray-800 text-sm font-semibold flex items-center gap-2 shadow-sm"><i class="fas fa-bus text-brand-teal"></i> <span data-i18n="veh_minivan">Mini Van</span></div>
+                        <div class="px-5 py-2.5 rounded-full bg-white dark:bg-[#050505] border border-gray-200 dark:border-gray-800 text-sm font-semibold flex items-center gap-2 shadow-sm"><i class="fas fa-taxi text-brand-orange"></i> <span data-i18n="veh_tuk">Three Wheeler</span></div>
+                        <div class="px-5 py-2.5 rounded-full bg-white dark:bg-[#050505] border border-gray-200 dark:border-gray-800 text-sm font-semibold flex items-center gap-2 shadow-sm"><i class="fas fa-motorcycle text-brand-orange"></i> <span data-i18n="veh_bike">Motorbike</span></div>
+                        <div class="px-5 py-2.5 rounded-full bg-white dark:bg-[#050505] border border-gray-200 dark:border-gray-800 text-sm font-semibold flex items-center gap-2 shadow-sm"><i class="fas fa-bicycle text-brand-orange"></i> <span data-i18n="veh_cycle">Bicycle</span></div>
+                    </div>
+
+                    <h3 class="text-2xl font-display font-bold text-center text-gray-900 dark:text-white mb-10" data-i18n="srv_special_title">Specialized Service Modes</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="group bg-white dark:bg-brand-card p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800 hover:border-pink-500/30 transition-colors duration-300 relative overflow-hidden shadow-sm">
+                            <div class="absolute -right-4 -top-4 w-24 h-24 bg-pink-500/10 rounded-full blur-2xl group-hover:bg-pink-500/20 transition-all"></div>
+                            <div class="w-12 h-12 rounded-full bg-pink-100 dark:bg-pink-900/30 text-pink-500 flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform"><i class="fas fa-venus"></i></div>
+                            <h4 class="text-xl font-display font-bold text-gray-900 dark:text-white mb-3 relative z-10">DailyGo+ HER</h4>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed relative z-10" data-i18n="srv_her">Exclusive female drivers providing secure and comfortable transit specifically for women travelers.</p>
+                        </div>
+                        <div class="group bg-white dark:bg-brand-card p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800 hover:border-brand-orange/30 transition-colors duration-300 relative overflow-hidden shadow-sm">
+                            <div class="absolute -right-4 -top-4 w-24 h-24 bg-brand-orange/10 rounded-full blur-2xl group-hover:bg-brand-orange/20 transition-all"></div>
+                            <div class="w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/30 text-brand-orange flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform"><i class="fas fa-users"></i></div>
+                            <h4 class="text-xl font-display font-bold text-gray-900 dark:text-white mb-3 relative z-10">DailyGo+ FAMILY</h4>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed relative z-10" data-i18n="srv_family">Spacious vehicles integrated with real-time child safety tracking for total peace of mind.</p>
+                        </div>
+                        <div class="group bg-white dark:bg-brand-card p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800 hover:border-brand-teal/30 transition-colors duration-300 relative overflow-hidden shadow-sm">
+                            <div class="absolute -right-4 -top-4 w-24 h-24 bg-brand-teal/10 rounded-full blur-2xl group-hover:bg-brand-teal/20 transition-all"></div>
+                            <div class="w-12 h-12 rounded-full bg-teal-100 dark:bg-teal-900/30 text-brand-teal flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform"><i class="fas fa-heartbeat"></i></div>
+                            <h4 class="text-xl font-display font-bold text-gray-900 dark:text-white mb-3 relative z-10">CareConnect</h4>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed relative z-10" data-i18n="srv_care">Specialized, assisted transport tailored for hospital, clinic visits, and elderly care.</p>
+                        </div>
+                        <div class="group bg-white dark:bg-brand-card p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800 hover:border-blue-500/30 transition-colors duration-300 relative overflow-hidden shadow-sm">
+                            <div class="absolute -right-4 -top-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition-all"></div>
+                            <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-500 flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform"><i class="fas fa-box"></i></div>
+                            <h4 class="text-xl font-display font-bold text-gray-900 dark:text-white mb-3 relative z-10">DailyGo+ EXPRESS</h4>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed relative z-10" data-i18n="srv_express">Rapid parcel delivery and secure grocery drops seamlessly integrated with retail partners.</p>
+                        </div>
+                        <div class="group bg-white dark:bg-brand-card p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800 hover:border-purple-500/30 transition-colors duration-300 relative overflow-hidden shadow-sm">
+                            <div class="absolute -right-4 -top-4 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-all"></div>
+                            <div class="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-500 flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform"><i class="fas fa-map-marked-alt"></i></div>
+                            <h4 class="text-xl font-display font-bold text-gray-900 dark:text-white mb-3 relative z-10">DailyGo+ TOUR</h4>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed relative z-10" data-i18n="srv_tour">Tourist-friendly rides featuring English-speaking drivers and curated city tour packages.</p>
+                        </div>
+                        <div class="group bg-white dark:bg-brand-card p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800 hover:border-green-500/30 transition-colors duration-300 relative overflow-hidden shadow-sm">
+                            <div class="absolute -right-4 -top-4 w-24 h-24 bg-green-500/10 rounded-full blur-2xl group-hover:bg-green-500/20 transition-all"></div>
+                            <div class="w-12 h-12 rounded-full bg-green-100 dark:bg-green-900/30 text-green-500 flex items-center justify-center text-xl mb-6 group-hover:scale-110 transition-transform"><i class="fas fa-wallet"></i></div>
+                            <h4 class="text-xl font-display font-bold text-gray-900 dark:text-white mb-3 relative z-10">DailyGo+ ECONOMY</h4>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed relative z-10" data-i18n="srv_economy">Our highly affordable, budget-conscious ride tier for your daily commuting needs.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- NEW: Island-Wide Coverage Section (Transport Page) -->
+            <section id="transport-reach" class="py-24 bg-white dark:bg-brand-dark relative overflow-hidden border-t border-gray-200 dark:border-gray-800">
+                <div class="absolute inset-0 sl-pattern opacity-50"></div>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    
+                    <div class="text-center max-w-3xl mx-auto mb-16">
+                        <span class="inline-block px-4 py-1.5 rounded-full bg-brand-teal/10 text-brand-teal font-bold text-xs uppercase tracking-widest mb-4" data-i18n="tp_cov_badge">Our Reach</span>
+                        <h2 class="text-4xl md:text-5xl font-display font-bold text-gray-900 dark:text-white mb-6" data-i18n="tp_cov_title">Island-Wide Operations</h2>
+                        <p class="text-lg text-gray-600 dark:text-gray-400 font-light" data-i18n="tp_cov_desc">DailyGo+ connects every corner of Sri Lanka. While we operate across all 25 districts, our primary high-density hubs ensure under 3-minute ETAs in major cities.</p>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-12 items-center">
+                        <!-- Left: Districts List -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="glass-panel p-6 rounded-2xl border border-brand-teal/30 dark:border-brand-teal/50 relative overflow-hidden group hover:-translate-y-1 transition-transform bg-white/50 dark:bg-brand-card/50 shadow-sm">
+                                <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity"><i class="fas fa-map-marker-alt text-6xl text-brand-teal"></i></div>
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1" data-i18n="tp_hub_colombo">Colombo</h3>
+                                <p class="text-sm text-brand-teal font-semibold mb-3" data-i18n="tp_hub_wp">Western Province Hub</p>
+                                <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 font-semibold uppercase tracking-wide"><i class="fas fa-circle text-green-500 text-[8px]"></i> <span data-i18n="tp_dens_ultra">Ultra-High Density</span></div>
+                            </div>
+                            <div class="glass-panel p-6 rounded-2xl border border-gray-200 dark:border-gray-800 relative overflow-hidden group hover:-translate-y-1 transition-transform bg-white/50 dark:bg-brand-card/50 shadow-sm">
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1" data-i18n="tp_hub_gampaha">Gampaha</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mb-3" data-i18n="tp_prov_wp">Western Province</p>
+                                <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 font-semibold uppercase tracking-wide"><i class="fas fa-circle text-green-500 text-[8px]"></i> <span data-i18n="tp_dens_high">High Density</span></div>
+                            </div>
+                            <div class="glass-panel p-6 rounded-2xl border border-gray-200 dark:border-gray-800 relative overflow-hidden group hover:-translate-y-1 transition-transform bg-white/50 dark:bg-brand-card/50 shadow-sm">
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1" data-i18n="tp_hub_kandy">Kandy</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mb-3" data-i18n="tp_hub_central">Central Hub</p>
+                                <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 font-semibold uppercase tracking-wide"><i class="fas fa-circle text-green-500 text-[8px]"></i> <span data-i18n="tp_dens_high">High Density</span></div>
+                            </div>
+                            <div class="glass-panel p-6 rounded-2xl border border-gray-200 dark:border-gray-800 relative overflow-hidden group hover:-translate-y-1 transition-transform bg-white/50 dark:bg-brand-card/50 shadow-sm">
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1" data-i18n="tp_hub_galle">Galle</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mb-3" data-i18n="tp_hub_south">Southern Hub</p>
+                                <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 font-semibold uppercase tracking-wide"><i class="fas fa-circle text-green-500 text-[8px]"></i> <span data-i18n="tp_dens_high">High Density</span></div>
+                            </div>
+                            <div class="glass-panel p-6 rounded-2xl border border-gray-200 dark:border-gray-800 relative overflow-hidden group hover:-translate-y-1 transition-transform bg-white/50 dark:bg-brand-card/50 shadow-sm">
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1" data-i18n="tp_hub_kurunegala">Kurunegala</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mb-3" data-i18n="tp_prov_nw">North Western</p>
+                                <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 font-semibold uppercase tracking-wide"><i class="fas fa-circle text-green-500 text-[8px]"></i> <span data-i18n="tp_dens_active">Active Coverage</span></div>
+                            </div>
+                            <div class="glass-panel p-6 rounded-2xl border border-gray-200 dark:border-gray-800 relative overflow-hidden group hover:-translate-y-1 transition-transform bg-white/50 dark:bg-brand-card/50 shadow-sm">
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1" data-i18n="tp_hub_jaffna">Jaffna</h3>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mb-3" data-i18n="tp_hub_north">Northern Hub</p>
+                                <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 font-semibold uppercase tracking-wide"><i class="fas fa-circle text-green-500 text-[8px]"></i> <span data-i18n="tp_dens_active">Active Coverage</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Interactive Map Visual -->
+                        <div class="relative h-[450px] bg-gray-200 dark:bg-gray-900 rounded-[3rem] border border-gray-200 dark:border-gray-800 overflow-hidden shadow-xl flex items-center justify-center">
+                            <!-- Google Maps Embed Centered on Sri Lanka (Interactive) -->
+                            <iframe src="https://maps.google.com/maps?q=Sri%20Lanka&t=&z=7&ie=UTF8&iwloc=&output=embed" class="absolute inset-0 w-full h-full border-0 filter dark:invert dark:hue-rotate-180 dark:opacity-60 z-0" style="pointer-events: auto;" allowfullscreen="" loading="lazy"></iframe>
+
+                            <!-- Overlays to blend the static map with the app -->
+                            <div class="absolute inset-0 bg-brand-teal/10 mix-blend-overlay pointer-events-none z-10"></div>
+                            <div class="absolute inset-0 bg-gradient-to-tr from-white/40 dark:from-black/60 to-transparent pointer-events-none z-10"></div>
+                            
+                            <!-- Placeholder Badge -->
+                            <div class="absolute top-4 right-4 glass-panel px-4 py-2 rounded-xl shadow-lg flex items-center gap-2 z-20 pointer-events-none">
+                                <i class="fas fa-map-marked-alt text-brand-teal"></i>
+                                <span class="text-xs font-bold text-gray-700 dark:text-gray-300" data-i18n="tp_cov_title">Island-Wide Operations</span>
+                            </div>
+                            
+                            <!-- Gampaha -->
+                            <div class="absolute top-[64%] left-[28%] z-20 flex items-center justify-center cursor-pointer group pointer-events-none">
+                                <div class="absolute w-8 h-8 bg-brand-teal rounded-full animate-ping opacity-20 animation-delay-2000"></div>
+                                <div class="w-2.5 h-2.5 bg-brand-teal rounded-full"></div>
+                            </div>
+
+                            <!-- Kandy -->
+                            <div class="absolute top-[57%] left-[48%] z-20 flex items-center justify-center cursor-pointer group pointer-events-none">
+                                <div class="absolute w-10 h-10 bg-brand-orange rounded-full animate-ping opacity-30 animation-delay-4000"></div>
+                                <div class="w-3 h-3 bg-brand-orange rounded-full shadow-[0_0_12px_#FFA500]"></div>
+                                <span class="absolute left-6 text-[10px] font-bold text-gray-900 dark:text-white opacity-0 group-hover:opacity-100 transition-opacity bg-white dark:bg-black px-2 py-1 rounded shadow-md border border-gray-200 dark:border-gray-800" data-i18n="tp_hub_kandy">Kandy</span>
+                            </div>
+
+                            <!-- Galle -->
+                            <div class="absolute top-[86%] left-[38%] z-20 flex items-center justify-center cursor-pointer group pointer-events-none">
+                                <div class="absolute w-10 h-10 bg-brand-orange rounded-full animate-ping opacity-30 animation-delay-2000"></div>
+                                <div class="w-3 h-3 bg-brand-orange rounded-full shadow-[0_0_12px_#FFA500]"></div>
+                                <span class="absolute left-6 text-[10px] font-bold text-gray-900 dark:text-white opacity-0 group-hover:opacity-100 transition-opacity bg-white dark:bg-black px-2 py-1 rounded shadow-md border border-gray-200 dark:border-gray-800" data-i18n="tp_hub_galle">Galle</span>
+                            </div>
+
+                            <!-- Kurunegala -->
+                            <div class="absolute top-[50%] left-[34%] z-20 flex items-center justify-center cursor-pointer group pointer-events-none">
+                                <div class="w-2.5 h-2.5 bg-gray-800 dark:bg-white rounded-full"></div>
+                            </div>
+
+                            <!-- Jaffna -->
+                            <div class="absolute top-[10%] left-[33%] z-20 flex items-center justify-center cursor-pointer group pointer-events-none">
+                                <div class="absolute w-8 h-8 bg-brand-teal rounded-full animate-ping opacity-20"></div>
+                                <div class="w-2.5 h-2.5 bg-brand-teal rounded-full"></div>
+                                <span class="absolute left-6 text-[10px] font-bold text-gray-900 dark:text-white opacity-0 group-hover:opacity-100 transition-opacity bg-white dark:bg-black px-2 py-1 rounded shadow-md border border-gray-200 dark:border-gray-800" data-i18n="tp_hub_jaffna">Jaffna</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+        </div> <!-- END TRANSPORT PAGE -->
+
+        <!-- ============================================== -->
+        <!-- 3. GLOMARK E-COMMERCE SHOPPING VIEW            -->
+        <!-- ============================================== -->
+        <div id="food-page" class="page-view bg-[#f8f9fa] dark:bg-[#050505] min-h-screen pb-32">
+            
+            <!-- Glomark Internal Header -->
+            <div class="sticky top-0 z-30 bg-white/90 dark:bg-[#0a0a0a]/90 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 transition-colors">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <button onclick="navigateAndScroll(event, 'home', null)" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-brand-teal hover:text-white transition-colors">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <div class="font-display font-bold text-2xl text-gray-900 dark:text-white" data-i18n="glo_title">
+                            Glomark <span class="text-brand-teal">Direct</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="hidden md:flex relative w-64 lg:w-96">
+                            <input type="text" class="w-full bg-gray-100 dark:bg-gray-800 rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-brand-teal text-gray-900 dark:text-white placeholder-gray-500" data-i18n-placeholder="glo_search" placeholder="Search groceries...">
+                            <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                        <button class="relative w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-brand-teal transition-colors">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="absolute -top-1 -right-1 bg-brand-orange text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white dark:border-[#0a0a0a]">3</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Glomark Content -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+                
+                <!-- Promotional Hero -->
+                <div class="w-full rounded-[2rem] bg-gradient-to-r from-brand-teal to-[#0A3A5C] p-8 md:p-12 text-white flex items-center justify-between shadow-lg shadow-[#0F4C75]/30 mb-8 relative overflow-hidden">
+                    <div class="absolute right-0 top-0 h-full w-1/2 bg-[url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1000')] bg-cover bg-center mix-blend-overlay opacity-30"></div>
+                    <div class="relative z-10">
+                        <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur rounded-full text-xs font-bold tracking-widest uppercase mb-4" data-i18n="glo_promo_badge">DailyGo+ Exclusive</span>
+                        <h2 class="text-3xl md:text-5xl font-display font-bold mb-2">Freshness Delivered.</h2>
+                        <p class="text-teal-50 text-lg md:text-xl font-light mb-6">Get 20% off all fresh produce today.</p>
+                        <button class="bg-white text-brand-teal font-bold px-6 py-3 rounded-full hover:scale-105 transition-transform shadow-md">Shop Now</button>
+                    </div>
+                </div>
+
+                <!-- Categories -->
+                <div class="flex items-center gap-3 overflow-x-auto pb-4 hide-scroll mb-6">
+                    <button class="px-5 py-2.5 rounded-full bg-brand-teal text-white text-sm font-semibold whitespace-nowrap shadow-md" data-i18n="glo_cat_all">All</button>
+                    <button class="px-5 py-2.5 rounded-full bg-white dark:bg-brand-card border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 text-sm font-semibold hover:border-brand-teal transition-colors whitespace-nowrap" data-i18n="glo_cat_fresh">Fresh Produce</button>
+                    <button class="px-5 py-2.5 rounded-full bg-white dark:bg-brand-card border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 text-sm font-semibold hover:border-brand-teal transition-colors whitespace-nowrap" data-i18n="glo_cat_meat">Meat & Seafood</button>
+                    <button class="px-5 py-2.5 rounded-full bg-white dark:bg-brand-card border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 text-sm font-semibold hover:border-brand-teal transition-colors whitespace-nowrap" data-i18n="glo_cat_bakery">Bakery</button>
+                    <button class="px-5 py-2.5 rounded-full bg-white dark:bg-brand-card border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 text-sm font-semibold hover:border-brand-teal transition-colors whitespace-nowrap" data-i18n="glo_cat_household">Household</button>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                    <!-- Item 1 -->
+                    <div class="bg-white dark:bg-brand-card rounded-2xl border border-gray-100 dark:border-gray-800 p-4 flex flex-col hover:shadow-xl transition-shadow group">
+                        <div class="h-32 md:h-40 bg-gray-100 dark:bg-gray-900 rounded-xl mb-4 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=400&q=80" alt="Tomatoes" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-sm md:text-base mb-1 line-clamp-1">Fresh Tomatoes</h4>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">1 kg</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="font-bold text-brand-teal text-lg">Rs. 450</span>
+                            <button class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-brand-teal hover:text-white transition-colors flex items-center justify-center"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 2 -->
+                    <div class="bg-white dark:bg-brand-card rounded-2xl border border-gray-100 dark:border-gray-800 p-4 flex flex-col hover:shadow-xl transition-shadow group">
+                        <div class="h-32 md:h-40 bg-gray-100 dark:bg-gray-900 rounded-xl mb-4 overflow-hidden relative">
+                            <span class="absolute top-2 left-2 bg-brand-orange text-white text-[10px] font-bold px-2 py-1 rounded-md z-10">-10%</span>
+                            <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6faa6?auto=format&fit=crop&w=400&q=80" alt="Apples" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-sm md:text-base mb-1 line-clamp-1">Red Apples</h4>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">500 g</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <div>
+                                <span class="font-bold text-brand-teal text-lg block leading-none">Rs. 800</span>
+                                <span class="text-[10px] text-gray-400 line-through">Rs. 890</span>
+                            </div>
+                            <button class="w-8 h-8 rounded-full bg-brand-teal text-white transition-colors flex items-center justify-center shadow-md"><i class="fas fa-check"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="bg-white dark:bg-brand-card rounded-2xl border border-gray-100 dark:border-gray-800 p-4 flex flex-col hover:shadow-xl transition-shadow group">
+                        <div class="h-32 md:h-40 bg-gray-100 dark:bg-gray-900 rounded-xl mb-4 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=400&q=80" alt="Bread" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-sm md:text-base mb-1 line-clamp-1">Whole Wheat Bread</h4>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">1 Loaf</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="font-bold text-brand-teal text-lg">Rs. 220</span>
+                            <button class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-brand-teal hover:text-white transition-colors flex items-center justify-center"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="bg-white dark:bg-brand-card rounded-2xl border border-gray-100 dark:border-gray-800 p-4 flex flex-col hover:shadow-xl transition-shadow group">
+                        <div class="h-32 md:h-40 bg-gray-100 dark:bg-gray-900 rounded-xl mb-4 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=400&q=80" alt="Milk" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-sm md:text-base mb-1 line-clamp-1">Fresh Farm Milk</h4>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">1 L</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="font-bold text-brand-teal text-lg">Rs. 450</span>
+                            <button class="w-8 h-8 rounded-full bg-brand-teal text-white transition-colors flex items-center justify-center shadow-md"><i class="fas fa-check"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="bg-white dark:bg-brand-card rounded-2xl border border-gray-100 dark:border-gray-800 p-4 flex flex-col hover:shadow-xl transition-shadow group">
+                        <div class="h-32 md:h-40 bg-gray-100 dark:bg-gray-900 rounded-xl mb-4 overflow-hidden relative">
+                             <span class="absolute top-2 left-2 bg-brand-teal text-white text-[10px] font-bold px-2 py-1 rounded-md z-10">Organic</span>
+                            <img src="https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?auto=format&fit=crop&w=400&q=80" alt="Eggs" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-sm md:text-base mb-1 line-clamp-1">Free Range Eggs</h4>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">10 Pack</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="font-bold text-brand-teal text-lg">Rs. 650</span>
+                            <button class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-brand-teal hover:text-white transition-colors flex items-center justify-center"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Item 6 -->
+                    <div class="bg-white dark:bg-brand-card rounded-2xl border border-gray-100 dark:border-gray-800 p-4 flex flex-col hover:shadow-xl transition-shadow group">
+                        <div class="h-32 md:h-40 bg-gray-100 dark:bg-gray-900 rounded-xl mb-4 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1604634077373-a279ca204fb6?auto=format&fit=crop&w=400&q=80" alt="Chicken" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <h4 class="font-bold text-gray-900 dark:text-white text-sm md:text-base mb-1 line-clamp-1">Whole Chicken</h4>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mb-3">1.2 kg</p>
+                        <div class="mt-auto flex justify-between items-center">
+                            <span class="font-bold text-brand-teal text-lg">Rs. 1450</span>
+                            <button class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-brand-teal hover:text-white transition-colors flex items-center justify-center"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sticky Cart/Checkout Footer -->
+            <div class="fixed bottom-0 left-0 right-0 bg-white dark:bg-brand-card border-t border-gray-200 dark:border-gray-800 p-4 z-40 shadow-[0_-10px_30px_rgba(0,0,0,0.05)] dark:shadow-[0_-10px_30px_rgba(0,0,0,0.5)]">
+                <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+                    <div class="flex flex-col">
+                        <span class="text-xs text-gray-500 dark:text-gray-400 font-semibold uppercase tracking-wider mb-1">Cart Total (3 Items)</span>
+                        <span class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">Rs. 1,250.00</span>
+                    </div>
+                    <button class="bg-brand-orange hover:bg-yellow-500 text-gray-900 font-bold px-6 py-3.5 md:py-4 rounded-xl transition-transform hover:scale-[1.02] shadow-lg flex items-center gap-3">
+                        <span class="hidden md:inline" data-i18n="glo_checkout">Checkout & Request Delivery</span>
+                        <span class="md:hidden">Checkout</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div> <!-- END GLOMARK PAGE -->
+
+        <!-- STUB PAGES -->
+        <div id="health-page" class="page-view bg-white dark:bg-brand-dark min-h-screen pt-32">
+            <div class="max-w-4xl mx-auto px-4 text-center py-20">
+                <button onclick="navigateAndScroll(event, 'home', null)" class="mb-8 text-brand-teal hover:underline font-semibold inline-flex items-center gap-2"><i class="fas fa-arrow-left"></i> <span data-i18n="back_home">Back to Home</span></button>
+                <div class="w-24 h-24 bg-teal-100 dark:bg-teal-900/30 text-brand-teal rounded-full flex items-center justify-center text-4xl mx-auto mb-8"><i class="fas fa-heartbeat"></i></div>
+                <h1 class="text-4xl md:text-6xl font-display font-bold text-gray-900 dark:text-white mb-6" data-i18n="hlth_title">Healthcare Services</h1>
+                <p class="text-xl text-gray-500 dark:text-gray-400 font-light mb-10" data-i18n="hlth_desc">Integration with Asiri Health & premier pharmacies coming soon. Seamlessly book tele-consultations and order prescriptions.</p>
+                <button onclick="navigateAndScroll(event, 'home', null)" class="bg-brand-teal text-white px-8 py-3 rounded-full font-semibold hover:bg-teal-600 transition" data-i18n="ret_home">Return Home</button>
+            </div>
+        </div>
+
+        <div id="retail-page" class="page-view bg-white dark:bg-brand-dark min-h-screen pt-32">
+            <div class="max-w-4xl mx-auto px-4 text-center py-20">
+                <button onclick="navigateAndScroll(event, 'home', null)" class="mb-8 text-brand-teal hover:underline font-semibold inline-flex items-center gap-2"><i class="fas fa-arrow-left"></i> <span data-i18n="back_home">Back to Home</span></button>
+                <div class="w-24 h-24 bg-orange-100 dark:bg-orange-900/30 text-brand-orange rounded-full flex items-center justify-center text-4xl mx-auto mb-8"><i class="fas fa-shopping-bag"></i></div>
+                <h1 class="text-4xl md:text-6xl font-display font-bold text-gray-900 dark:text-white mb-6" data-i18n="ret_title">Retail Shopping</h1>
+                <p class="text-xl text-gray-500 dark:text-gray-400 font-light mb-10" data-i18n="ret_desc">Direct integration with ODEL. Try the Barbie AI Fashion Assistant to match your outfits and get them delivered to your door.</p>
+                <button onclick="navigateAndScroll(event, 'home', null)" class="bg-brand-teal text-white px-8 py-3 rounded-full font-semibold hover:bg-teal-600 transition" data-i18n="ret_home">Return Home</button>
+            </div>
+        </div>
+
+        <div id="wellness-page" class="page-view bg-white dark:bg-brand-dark min-h-screen pt-32">
+            <div class="max-w-4xl mx-auto px-4 text-center py-20">
+                <button onclick="navigateAndScroll(event, 'home', null)" class="mb-8 text-brand-teal hover:underline font-semibold inline-flex items-center gap-2"><i class="fas fa-arrow-left"></i> <span data-i18n="back_home">Back to Home</span></button>
+                <div class="w-24 h-24 bg-teal-100 dark:bg-teal-900/30 text-brand-teal rounded-full flex items-center justify-center text-4xl mx-auto mb-8"><i class="fas fa-leaf"></i></div>
+                <h1 class="text-4xl md:text-6xl font-display font-bold text-gray-900 dark:text-white mb-6" data-i18n="wel_title">Wellness Tools</h1>
+                <p class="text-xl text-gray-500 dark:text-gray-400 font-light mb-10" data-i18n="wel_desc">Smart diet planners, fitness tracking integration, and wellness insights powered by Softlogic Life.</p>
+                <button onclick="navigateAndScroll(event, 'home', null)" class="bg-brand-teal text-white px-8 py-3 rounded-full font-semibold hover:bg-teal-600 transition" data-i18n="ret_home">Return Home</button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- 7. Minimalist Footer -->
+    <footer class="bg-gray-50 dark:bg-[#0a0a0a] pt-16 pb-8 border-t border-gray-200 dark:border-gray-900 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <!-- Brand Col -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-2 cursor-pointer mb-4" onclick="navigateAndScroll(event, 'home', null)">
+                        <img src="" alt="DailyGo+ Logo" class="w-[auto] h-[30px] object-contain" id="footer-logo-image" style="display: none;">
+                        <span class="text-2xl font-display font-bold tracking-tight text-gray-900 dark:text-white" id="footer-logo-text">
+                            DailyGo<span class="text-brand-orange">.</span>
+                        </span>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 font-light leading-relaxed max-w-sm text-sm" data-i18n="ft_desc">
+                        Sri Lanka's premium connected super app. Bridging transportation, retail, and healthcare into one seamless experience.
+                    </p>
+                </div>
+
+                <!-- Links Col -->
+                <div>
+                    <h4 class="text-gray-900 dark:text-white font-semibold mb-4 text-sm uppercase tracking-wider" data-i18n="ft_expl">Explore</h4>
+                    <ul class="space-y-3 text-sm font-light text-gray-500 dark:text-gray-400">
+                        <li><a href="#about" onclick="navigateAndScroll(event, 'home', 'about')" class="hover:text-brand-teal transition-colors" data-i18n="ft_au">About Us</a></li>
+                        <li><a href="#services" onclick="navigateAndScroll(event, 'home', 'services')" class="hover:text-brand-teal transition-colors" data-i18n="ft_srv">Services</a></li>
+                        <li><a href="#trust" onclick="navigateAndScroll(event, 'home', 'trust')" class="hover:text-brand-teal transition-colors" data-i18n="ft_ts">Trust & Safety</a></li>
+                    </ul>
+                </div>
+
+                <!-- Links Col -->
+                <div>
+                    <h4 class="text-gray-900 dark:text-white font-semibold mb-4 text-sm uppercase tracking-wider" data-i18n="ft_join">Join Us</h4>
+                    <ul class="space-y-3 text-sm font-light text-gray-500 dark:text-gray-400">
+                        <li><a href="#driver" onclick="navigateAndScroll(event, 'home', 'driver')" class="hover:text-brand-teal transition-colors" data-i18n="ft_drv">Drive for DailyGo+</a></li>
+                        <li><button onclick="toggleAuthModal()" class="hover:text-brand-teal transition-colors" data-i18n="ft_cp">Customer Portal</button></li>
+                        <li><a href="#contact" onclick="navigateAndScroll(event, 'home', 'contact')" class="hover:text-brand-teal transition-colors" data-i18n="ft_cs">Contact Support</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-6 border-t border-gray-200 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-light text-gray-400">
+                <p data-i18n="ft_copy">&copy; 2026 DailyGo+ Platforms. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="ft_pp">Privacy Policy</a>
+                    <a href="#" class="hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="ft_tos">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top FAB -->
+    <button id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 bg-brand-teal text-white rounded-full shadow-lg shadow-[#0F4C75]/40 flex items-center justify-center opacity-0 pointer-events-none transform translate-y-4 transition-all duration-300 z-50 hover:bg-[#0A3A5C]">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        // --- Robust SPA Routing Logic ---
+        function navigateAndScroll(e, pageId, sectionId) {
+            if (e) e.preventDefault();
+            
+            document.querySelectorAll('.page-view').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            const activePage = document.getElementById(pageId + '-page');
+            if (activePage) {
+                activePage.classList.add('active');
+            }
+            
+            const header = document.getElementById('navbar');
+            if (pageId === 'transport' || pageId === 'food') {
+                header.classList.add('hidden'); // Hide main nav for sub-apps
+            } else {
+                header.classList.remove('hidden');
+                header.classList.remove('bg-white', 'dark:bg-brand-card', 'shadow-sm');
+            }
+
+            if (sectionId) {
+                setTimeout(() => {
+                    const target = document.getElementById(sectionId);
+                    if (target) {
+                        const headerOffset = 80;
+                        const elementPosition = target.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                }, 50); 
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // --- Mobile Menu Logic ---
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        let isMobileMenuOpen = false;
+
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+        function toggleMobileMenu() {
+            isMobileMenuOpen = !isMobileMenuOpen;
+            if (isMobileMenuOpen) {
+                mobileMenu.classList.remove('hidden');
+                setTimeout(() => mobileMenu.classList.remove('opacity-0'), 10);
+                mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+                document.body.style.overflow = 'hidden';
+            } else {
+                mobileMenu.classList.add('opacity-0');
+                setTimeout(() => {
+                    mobileMenu.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }, 300);
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        }
+
+
+        // --- Search Ride Simulation UI logic ---
+        function simulateRideSearch() {
+            const btn = document.getElementById('search-ride-btn');
+            const originalContent = btn.innerHTML;
+            const currentLanguage = localStorage.getItem('lang') || 'en';
+            const searchString = currentLanguage === 'si' ? 'සොයමින් පවතී...' : 'Searching...';
+            
+            btn.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i> ${searchString}`;
+            
+            setTimeout(() => {
+                btn.innerHTML = originalContent;
+                document.getElementById('saved-places').classList.add('hidden');
+                document.getElementById('ride-options').classList.remove('hidden');
+            }, 800);
+        }
+
+        // --- Auth Modal Logic ---
+        const authModal = document.getElementById('auth-modal');
+        const authCard = document.getElementById('auth-card');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const authTitle = document.getElementById('auth-title');
+        const authSubtitle = document.getElementById('auth-subtitle');
+        let isLoginMode = true;
+
+        function toggleAuthModal() {
+            if (authModal.classList.contains('hidden')) {
+                authModal.classList.remove('hidden');
+                setTimeout(() => {
+                    authModal.classList.remove('opacity-0');
+                    authCard.classList.remove('scale-95');
+                    authCard.classList.add('scale-100');
+                }, 10);
+                document.body.style.overflow = 'hidden'; 
+            } else {
+                authModal.classList.add('opacity-0');
+                authCard.classList.remove('scale-100');
+                authCard.classList.add('scale-95');
+                setTimeout(() => {
+                    authModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }, 300); 
+            }
+        }
+
+        authModal.addEventListener('click', (e) => {
+            if (e.target === authModal) {
+                toggleAuthModal();
+            }
+        });
+
+        function switchAuthMode() {
+            isLoginMode = !isLoginMode;
+            authCard.style.opacity = '0';
+            const currentLanguage = localStorage.getItem('lang') || 'en';
+            
+            setTimeout(() => {
+                if (isLoginMode) {
+                    loginForm.classList.remove('hidden');
+                    signupForm.classList.add('hidden');
+                    authTitle.innerText = translations[currentLanguage]['auth_title_login'];
+                    authSubtitle.innerText = translations[currentLanguage]['auth_desc_login'];
+                } else {
+                    loginForm.classList.add('hidden');
+                    signupForm.classList.remove('hidden');
+                    authTitle.innerText = translations[currentLanguage]['auth_title_signup'];
+                    authSubtitle.innerText = translations[currentLanguage]['auth_desc_signup'];
+                }
+                authCard.style.opacity = '1';
+            }, 200);
+        }
+
+        // --- Interactivity: Scroll Progress & Back to Top ---
+        window.addEventListener('scroll', () => {
+            const scrollPx = document.documentElement.scrollTop;
+            const winHeightPx = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollLen = `${(scrollPx / winHeightPx) * 100}%`;
+            document.getElementById('scroll-progress').style.width = scrollLen;
+
+            const header = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                header.classList.remove('pt-6');
+                header.classList.add('pt-2');
+            } else {
+                header.classList.add('pt-6');
+                header.classList.remove('pt-2');
+            }
+
+            const bttBtn = document.getElementById('backToTop');
+            if (window.scrollY > 500) {
+                bttBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+                bttBtn.classList.add('opacity-100');
+            } else {
+                bttBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+                bttBtn.classList.remove('opacity-100');
+            }
+        });
+
+        document.getElementById('backToTop').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // --- Dark Mode Controller ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const html = document.documentElement;
+
+        function updateTheme(isDark) {
+            if (isDark) {
+                html.classList.add('dark');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                document.querySelector('.light-mode')?.classList.remove('light-mode');
+            } else {
+                html.classList.remove('dark');
+                html.classList.add('light-mode'); 
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            }
+        }
+
+        const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const storedTheme = localStorage.getItem('theme');
+        const isDarkMode = storedTheme === 'dark' || (!storedTheme && isSystemDark);
+        updateTheme(isDarkMode);
+
+        themeToggleBtn.addEventListener('click', () => {
+            const willBeDark = !html.classList.contains('dark');
+            updateTheme(willBeDark);
+            localStorage.setItem('theme', willBeDark ? 'dark' : 'light');
+        });
+
+        // --- Translation Controller (EN/SI) ---
+        const translations = {
+            en: {
+                nav_about: "About", nav_services: "Services", nav_features: "Features", nav_trust: "Trust & Safety", nav_drive: "Drive", nav_login: "Login", nav_download: "Get the App",
+                hero_badge: "Powered by Softlogic", hero_title_1: "Move through", hero_title_2: "life", 
+                hero_subtitle: "Not just a cab service, but a connected ecosystem. Powered by Softlogic brands, we seamlessly integrate:",
+                hero_f1: "Transportation", hero_f2: "Healthcare Services", hero_f3: "Retail Shopping", hero_f4: "Food & Grocery", hero_f5: "Wellness Tools",
+                btn_appstore: "App Store", btn_playstore: "Google Play",
+                float_safe: "Verified Driver", float_shop: "Glomark Direct",
+                tp_header_title: "DailyGo+ <span class='text-brand-teal'>Rides</span>",
+                tp_title: "Go anywhere with DailyGo+", tp_ride: "Ride", tp_schedule: "Schedule", tp_btn: "Search Prices", 
+                tp_home: "Home", tp_add_home: "Add home address", tp_work: "Work", tp_add_work: "Add work address",
+                tp_cov_badge: "Our Reach", tp_cov_title: "Island-Wide Operations", tp_cov_desc: "DailyGo+ connects every corner of Sri Lanka. While we operate across all 25 districts, our primary high-density hubs ensure under 3-minute ETAs in major cities.",
+                tp_hub_colombo: "Colombo", tp_hub_gampaha: "Gampaha", tp_hub_kandy: "Kandy", tp_hub_galle: "Galle", tp_hub_kurunegala: "Kurunegala", tp_hub_jaffna: "Jaffna",
+                tp_hub_wp: "Western Province Hub", tp_prov_wp: "Western Province", tp_hub_central: "Central Hub", tp_hub_south: "Southern Hub", tp_prov_nw: "North Western", tp_hub_north: "Northern Hub", tp_dens_ultra: "Ultra-High Density", tp_dens_high: "High Density", tp_dens_active: "Active Coverage",
+                about_title: "More Than a Ride.", 
+                about_desc1: "DailyGo+ is a revolutionary ride-hailing and lifestyle super app built for the Sri Lankan market. We go beyond being just a cab service to provide a fully connected ecosystem.",
+                about_desc2: "Powered entirely by the prestigious Softlogic ecosystem, we seamlessly integrate transportation with premium retail shopping, grocery delivery, and world-class healthcare services.",
+                about_point1_title: "Strictly No Surge Pricing", about_point1_desc: "Prices stay exactly the same during peak hours, rain, or high demand.",
+                about_point2_title: "Unrivaled Safety Focus", about_point2_desc: "Built-in emergency tracking, verified professional drivers, and female-only modes.",
+                services_title: "Ride Your Way.", services_subtitle: "A massive, specialized fleet tailored to fit every lifestyle and budget requirement.",
+                srv_her: "Exclusive female drivers providing secure and comfortable transit specifically for women travelers.",
+                srv_family: "Spacious vehicles integrated with real-time child safety tracking for total peace of mind.",
+                srv_care: "Specialized, assisted transport tailored for hospital, clinic visits, and elderly care.",
+                srv_express: "Rapid parcel delivery and secure grocery drops seamlessly integrated with retail partners.",
+                srv_tour: "Tourist-friendly rides featuring English-speaking drivers and curated city tour packages.",
+                srv_economy: "Our highly affordable, budget-conscious ride tier for your daily commuting needs.",
+                banner_title: "Connected to Your City.", banner_subtitle: "Wherever you go, we are already there.",
+                features_title: "Features That Redefine Lifestyle.", features_subtitle: "The platform's unique capabilities blend smart transport with daily conveniences.",
+                feat_tech_title: "Smart Technology", feat_life_title: "Unique Lifestyle Features",
+                hw_title: "Simply How It Works",
+                trust_title: "Trust is Our Foundation.", trust_desc: "We don't just move people; we protect them. From our dedicated emergency SOS button to real-time GPS tracking and female-only driver options, your security is engineered into every line of code in our app.",
+                dl_title: "Scan & Go.", dl_desc: "Point your phone camera at the QR code to instantly download the DailyGo+ app on iOS or Android.", dl_scan: "Scan to Download",
+                driver_title: "Become a DailyGo+ Driver.",
+                driver_btn: "Submit Application", driver_form_title: "Quick Registration",
+                glo_title: "Glomark <span class='text-brand-teal'>Direct</span>", glo_promo_badge: "DailyGo+ Exclusive",
+                glo_cat_all: "All", glo_cat_fresh: "Fresh Produce", glo_cat_meat: "Meat & Seafood", glo_cat_bakery: "Bakery", glo_cat_household: "Household",
+                glo_checkout: "Checkout & Request Delivery",
+                auth_email: "Email / Phone", auth_pass: "Password", auth_rem: "Remember me", auth_forgot: "Forgot Password?", auth_no_acc: "Don't have an account?", auth_signup: "Sign Up", auth_fname: "First Name", auth_lname: "Last Name", auth_create: "Create Account", auth_has_acc: "Already have an account?", auth_login: "Log In", auth_title_login: "Welcome Back", auth_desc_login: "Log in to manage your rides and orders.", auth_title_signup: "Create Account", auth_desc_signup: "Join the smartest lifestyle platform.",
+                veh_car: "Car / Mini / Van", veh_mini: "Mini", veh_van: "Van", veh_minivan: "Mini Van", veh_tuk: "Three Wheeler", veh_bike: "Motorbike", veh_cycle: "Bicycle", srv_special_title: "Specialized Service Modes",
+                vis_title: "Our Vision & Mission", vis_v: "Vision", vis_v_desc: "To become the ultimate, most trusted digital lifestyle platform that connects every aspect of daily living intelligently and safely.", vis_m: "Mission", vis_m_desc: "Empower users with reliable, transparent, surge-free transport while integrating unparalleled retail and healthcare access through the Softlogic network.",
+                trust_std: "Platform Safety Standards", tr_bg_t: "Rigorous Background Checks", tr_bg_d: "Every driver undergoes strict identity and criminal record screening.", tr_tr_t: "Professional Training", tr_tr_d: "Drivers must pass certified etiquette and safe driving courses.", tr_ins_t: "Comprehensive Insurance", tr_ins_d: "All rides are backed by robust Softlogic Life insurance coverage.", tr_veh_t: "Regular Vehicle Inspections", tr_veh_d: "Mandatory physical and mechanical checks for fleet safety.", tr_ver_fleet: "Verified Fleet", tr_live_sup: "Live Support",
+                drv_part: "Partner Program", drv_b1: "Industry-lowest commission rates.", drv_b2: "Monthly salary opportunities & bonuses.", drv_b3: "Softlogic Life Insurance & Healthcare benefits.", drv_b4: "Free professional training program.",
+                form_fname: "Full Name", form_phone: "Mobile Number", form_vtype: "Vehicle Type",
+                ft_desc: "Sri Lanka's premium connected super app. Bridging transportation, retail, and healthcare into one seamless experience.", ft_expl: "Explore", ft_join: "Join Us", ft_au: "About Us", ft_srv: "Services", ft_ts: "Trust & Safety", ft_drv: "Drive for DailyGo+", ft_cp: "Customer Portal", ft_cs: "Contact Support", ft_copy: "&copy; 2026 DailyGo+ Platforms. All rights reserved.", ft_pp: "Privacy Policy", ft_tos: "Terms of Service",
+                hlth_title: "Healthcare Services", hlth_desc: "Integration with Asiri Health & premier pharmacies coming soon. Seamlessly book tele-consultations and order prescriptions.", ret_title: "Retail Shopping", ret_desc: "Direct integration with ODEL. Try the Barbie AI Fashion Assistant to match your outfits and get them delivered to your door.", wel_title: "Wellness Tools", wel_desc: "Smart diet planners, fitness tracking integration, and wellness insights powered by Softlogic Life.", back_home: "Back to Home", ret_home: "Return Home"
+            },
+            si: {
+                nav_about: "අප ගැන", nav_services: "සේවාවන්", nav_features: "විශේෂාංග", nav_trust: "ආරක්ෂාව", nav_drive: "රිය පදවන්න", nav_login: "ඇතුල් වන්න", nav_download: "ඇප් එක ගන්න",
+                hero_badge: "Softlogic බලගැන්වීමකි", hero_title_1: "ජීවිතයේ ගමන", hero_title_2: "වඩාත්", 
+                hero_subtitle: "හුදෙක් වාහන සේවාවක් පමණක් නොව, එකිනෙක සම්බන්ධ වූ පරිසර පද්ධතියකි. Softlogic සන්නාම මගින් බලගන්වා ඇත:",
+                hero_f1: "ප්‍රවාහනය", hero_f2: "සෞඛ්‍ය සේවා", hero_f3: "සාප්පු සවාරි", hero_f4: "ආහාර සහ සිල්ලර බඩු", hero_f5: "සුවතා සේවා",
+                btn_appstore: "App Store", btn_playstore: "Google Play",
+                float_safe: "තහවුරු කළ රියදුරන්", float_shop: "Glomark Direct",
+                tp_header_title: "DailyGo+ <span class='text-brand-teal'>ගමන්</span>",
+                tp_title: "DailyGo+ සමඟ ඕනෑම තැනක යන්න", tp_ride: "ගමනක්", tp_schedule: "වෙලාවක් වෙන්කරන්න", tp_btn: "මිල ගණන් බලන්න",
+                tp_home: "නිවස", tp_add_home: "නිවසේ ලිපිනය එක් කරන්න", tp_work: "රැකියාව", tp_add_work: "රැකියා ලිපිනය එක් කරන්න",
+                tp_cov_badge: "අපගේ ව්‍යාප්තිය", tp_cov_title: "දිවයින පුරා මෙහෙයුම්", tp_cov_desc: "DailyGo+ ශ්‍රී ලංකාවේ සෑම අස්සක් මුල්ලක් නෑරම සම්බන්ධ කරයි. අපගේ ප්‍රධාන නගරවල මිනිත්තු 3කට අඩු කාලයකින් සේවාව ලබාගත හැක.",
+                tp_hub_colombo: "කොළඹ", tp_hub_gampaha: "ගම්පහ", tp_hub_kandy: "මහනුවර", tp_hub_galle: "ගාල්ල", tp_hub_kurunegala: "කුරුණෑගල", tp_hub_jaffna: "යාපනය",
+                tp_hub_wp: "බස්නාහිර පළාත් මධ්‍යස්ථානය", tp_prov_wp: "බස්නාහිර පළාත", tp_hub_central: "මධ්‍යම පළාත් මධ්‍යස්ථානය", tp_hub_south: "දකුණු පළාත් මධ්‍යස්ථානය", tp_prov_nw: "වයඹ පළාත", tp_hub_north: "උතුරු පළාත් මධ්‍යස්ථානය", tp_dens_ultra: "අතිශය ඉහළ ඝනත්වය", tp_dens_high: "ඉහළ ඝනත්වය", tp_dens_active: "සක්‍රීය ආවරණය",
+                about_title: "ගමනකට වඩා වැඩි යමක්.", 
+                about_desc1: "DailyGo+ යනු ශ්‍රී ලංකාව සඳහාම නිර්මාණය කරන ලද නව්‍ය ප්‍රවාහන සහ ජීවන රටා ඇප් එකකි. අපි සාමාන්‍ය කැබ් සේවාවකින් ඔබ්බට ගොස් සම්පූර්ණ පරිසර පද්ධතියක් සපයන්නෙමු.",
+                about_desc2: "Softlogic පරිසර පද්ධතිය මගින් බලගන්වා ඇති අපි, ප්‍රවාහනය, සිල්ලර බඩු බෙදාහැරීම සහ සෞඛ්‍ය සේවා එකට සම්බන්ධ කර ඇත.",
+                about_point1_title: "අමතර ගාස්තු නැත", about_point1_desc: "කාර්යබහුල වේලාවන්හිදී හෝ වර්ෂාවකදී කිසිවිටෙකත් මිල වෙනස් නොවේ.",
+                about_point2_title: "ආරක්ෂාවට මුල් තැන", about_point2_desc: "හදිසි ලුහුබැඳීම්, තහවුරු කළ රියදුරන් සහ කාන්තාවන් සඳහාම වෙන්වූ සේවාවන්.",
+                services_title: "ඔබේ ගමන ඔබේ විදිහට.", services_subtitle: "ඔබේ ජීවන රටාවට සහ අයවැයට ගැලපෙන පුළුල් වාහන සමූහයක්.",
+                srv_her: "කාන්තා මගීන්ගේ ආරක්ෂාව සහ පහසුව සඳහා වෙන්වූ කාන්තා රියදුරන්.",
+                srv_family: "ළමා ආරක්ෂණ ලුහුබැඳීම සහිත විශ්වාසදායක, ඉඩකඩ සහිත වාහන.",
+                srv_care: "රෝහල් සහ සායන චාරිකා සඳහා මෙන්ම වැඩිහිටි රැකවරණය සඳහා විශේෂිත ප්‍රවාහනය.",
+                srv_express: "අපගේ සිල්ලර හවුල්කරුවන් හරහා වේගවත් පාර්සල් සහ සිල්ලර බඩු බෙදාහැරීම.",
+                srv_tour: "සංචාරකයින් සඳහා ඉංග්‍රීසි කතා කරන රියදුරන් සහ විශේෂ චාරිකා පැකේජ.",
+                srv_economy: "ඔබගේ දෛනික ගමන් අවශ්‍යතා සඳහා ඉතා අඩු වියදම් සේවාවක්.",
+                banner_title: "ඔබේ නගරය සමඟ සම්බන්ධයි.", banner_subtitle: "ඔබ යන කොතැනක වුවත්, අපි එහි සිටිමු.",
+                features_title: "ඔබේ ජීවන රටාව වෙනස් කරන විශේෂාංග.", features_subtitle: "ස්මාර්ට් ප්‍රවාහනය සහ දෛනික පහසුකම් එකට මුසු වූ සේවාවක්.",
+                feat_tech_title: "ස්මාර්ට් තාක්ෂණය", feat_life_title: "සුවිශේෂී ජීවන රටා විශේෂාංග",
+                hw_title: "ක්‍රියාත්මක වන ආකාරය",
+                trust_title: "අපගේ පදනම විශ්වාසයයි.", trust_desc: "අප හුදෙක් මිනිසුන් ප්‍රවාහනය කරන්නේ නැත, අපි ඔවුන්ව ආරක්ෂා කරමු. හදිසි SOS බොත්තමේ සිට සජීවී GPS ලුහුබැඳීම දක්වා ඔබේ ආරක්ෂාව අප තහවුරු කර ඇත.",
+                dl_title: "ස්කෑන් කර බාගත කරන්න.", dl_desc: "iOS හෝ Android මත DailyGo+ ඇප් එක බාගත කිරීමට ඔබගේ දුරකථනයෙන් QR කේතය ස්කෑන් කරන්න.", dl_scan: "බාගත කිරීමට ස්කෑන් කරන්න",
+                driver_title: "DailyGo+ රියදුරෙකු වන්න.",
+                driver_btn: "අයදුම්පත යොමු කරන්න", driver_form_title: "ඉක්මන් ලියාපදිංචිය",
+                glo_title: "Glomark <span class='text-brand-teal'>Direct</span>", glo_promo_badge: "DailyGo+ සඳහා පමණයි",
+                glo_cat_all: "සියල්ල", glo_cat_fresh: "නැවුම් එළවළු", glo_cat_meat: "මස් සහ මාළු", glo_cat_bakery: "බේකරි", glo_cat_household: "ගෘහ අවශ්‍යතා",
+                glo_checkout: "ගෙවීම් කර බෙදාහැරීම ඉල්ලන්න",
+                auth_email: "ඊමේල් / දුරකථන අංකය", auth_pass: "මුරපදය", auth_rem: "මාව මතක තබා ගන්න", auth_forgot: "මුරපදය අමතකද?", auth_no_acc: "ගිණුමක් නැද්ද?", auth_signup: "ලියාපදිංචි වන්න", auth_fname: "මුල් නම", auth_lname: "අවසන් නම", auth_create: "ගිණුම සාදන්න", auth_has_acc: "දැනටමත් ගිණුමක් තිබේද?", auth_login: "ඇතුල් වන්න", auth_title_login: "යළිත් සාදරයෙන් පිළිගනිමු", auth_desc_login: "ඔබගේ ගමන් සහ ඇණවුම් කළමනාකරණය කිරීමට ඇතුල් වන්න.", auth_title_signup: "ගිණුමක් සාදන්න", auth_desc_signup: "විශිෂ්ටතම ජීවන රටා වේදිකාව සමඟ එක්වන්න.",
+                veh_car: "කාර් / මිනි / වෑන්", veh_mini: "මිනි", veh_van: "වෑන්", veh_minivan: "මිනි වෑන්", veh_tuk: "ත්‍රීරෝද රථය", veh_bike: "යතුරුපැදිය", veh_cycle: "බයිසිකලය", srv_special_title: "සුවිශේෂී සේවා ක්‍රම",
+                vis_title: "අපගේ දැක්ම සහ මෙහෙවර", vis_v: "දැක්ම", vis_v_desc: "දෛනික ජීවිතයේ සෑම අංශයක්ම බුද්ධිමත්ව සහ ආරක්ෂිතව සම්බන්ධ කරන විශ්වාසදායකම ඩිජිටල් ජීවන රටා වේදිකාව බවට පත්වීම.", vis_m: "මෙහෙවර", vis_m_desc: "Softlogic ජාලය හරහා අසමසම සිල්ලර සහ සෞඛ්‍ය සේවා ප්‍රවේශය ඒකාබද්ධ කරන අතරම විශ්වාසදායක, විනිවිද පෙනෙන, අමතර ගාස්තු රහිත ප්‍රවාහනයක් සමඟින් පරිශීලකයින් බලගැන්වීම.",
+                trust_std: "වේදිකාවේ ආරක්ෂණ ප්‍රමිතීන්", tr_bg_t: "දැඩි පසුබිම් පරීක්ෂාවන්", tr_bg_d: "සෑම රියදුරෙකුම දැඩි අනන්‍යතා සහ අපරාධ වාර්තා පරීක්ෂාවකට භාජනය වේ.", tr_tr_t: "වෘත්තීය පුහුණුව", tr_tr_d: "රියදුරන් සහතික කළ ආචාර විධි සහ ආරක්ෂිත රිය පැදවීමේ පාඨමාලා සමත් විය යුතුය.", tr_ins_t: "පූර්ණ රක්ෂණය", tr_ins_d: "සියලුම ගමන් සඳහා ශක්තිමත් Softlogic Life රක්ෂණ ආවරණයක් හිමිවේ.", tr_veh_t: "නිතිපතා වාහන පරීක්ෂා කිරීම්", tr_veh_d: "වාහන සමූහයේ ආරක්ෂාව සඳහා අනිවාර්ය භෞතික සහ යාන්ත්‍රික පරීක්ෂාවන්.", tr_ver_fleet: "තහවුරු කළ වාහන", tr_live_sup: "සජීවී සහාය",
+                drv_part: "හවුල්කාර වැඩසටහන", drv_b1: "කර්මාන්තයේ අඩුම කොමිස් අනුපාත.", drv_b2: "මාසික වැටුප් අවස්ථා සහ බෝනස්.", drv_b3: "Softlogic ජීවිත රක්ෂණ සහ සෞඛ්‍ය සේවා ප්‍රතිලාභ.", drv_b4: "නොමිලේ වෘත්තීය පුහුණු වැඩසටහන.",
+                form_fname: "සම්පූර්ණ නම", form_phone: "ජංගම දුරකථන අංකය", form_vtype: "වාහන වර්ගය",
+                ft_desc: "ශ්‍රී ලංකාවේ ප්‍රමුඛතම සුපිරි ඇප් එක. ප්‍රවාහනය, සාප්පු සවාරි සහ සෞඛ්‍ය සේවා එකම තැනකින්.", ft_expl: "ගවේෂණය", ft_join: "අප හා එක්වන්න", ft_au: "අප ගැන", ft_srv: "සේවාවන්", ft_ts: "ආරක්ෂාව", ft_drv: "DailyGo+ සමඟ එක්වන්න", ft_cp: "පාරිභෝගික ද්වාරය", ft_cs: "සහාය අමතන්න", ft_copy: "&copy; 2026 DailyGo+ Platforms. සියලුම හිමිකම් ඇවිරිණි.", ft_pp: "රහස්‍යතා ප්‍රතිපත්තිය", ft_tos: "සේවා කොන්දේසි",
+                hlth_title: "සෞඛ්‍ය සේවා", hlth_desc: "Asiri Health සහ ප්‍රමුඛ පෙළේ ඔසුසැල් සමඟ ඒකාබද්ධ වීම ළඟදීම. වීඩියෝ උපදේශන සහ ඖෂධ ඇණවුම් කිරීම පහසුවෙන් සිදුකරන්න.", ret_title: "සාප්පු සවාරි", ret_desc: "ODEL සමඟ සෘජුව සම්බන්ධ වී ඇත. Barbie AI Fashion Assistant හරහා ඔබේ ඇඳුම් තෝරාගෙන නිවසටම ගෙන්වා ගන්න.", wel_title: "සුවතා සේවා", wel_desc: "Softlogic Life මගින් බලගන්වන ලද ස්මාර්ට් ආහාර සැලසුම්, යෝග්‍යතා ලුහුබැඳීම් සහ සුවතා තොරතුරු.", back_home: "ප්‍රධාන පිටුවට", ret_home: "ප්‍රධාන පිටුවට යන්න"
+            }
+        };
+
+        // Language Selector Functions
+        const langCodes = { 'en': 'EN', 'si': 'SI', 'hi': 'HI', 'zh': 'ZH', 'de': 'DE', 'ru': 'RU', 'ko': 'KO' };
+        
+        function selectLanguage(lang) {
+            applyLanguage(lang);
+            document.getElementById('lang-display').textContent = langCodes[lang];
+            // Close dropdown by simulating mouseout
+            document.querySelector('.group').dispatchEvent(new MouseEvent('mouseout', { bubbles: true }));
+        }
+        
+        function applyLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang]?.[key]) {
+                    el.style.opacity = 0; 
+                    setTimeout(() => {
+                        el.innerHTML = translations[lang][key];
+                        if (lang === 'si') {
+                            el.classList.add('font-sinhala');
+                            el.classList.remove('font-display', 'font-sans');
+                            document.documentElement.setAttribute('lang', 'si');
+                        } else {
+                            el.classList.remove('font-sinhala');
+                            el.classList.add(el.tagName.match(/^H[1-6]$/) ? 'font-display' : 'font-sans');
+                            document.documentElement.setAttribute('lang', 'en');
+                        }
+                        el.style.opacity = 1; 
+                    }, 300);
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (lang === 'si') {
+                    if(key === 'glo_search') el.placeholder = "සිල්ලර බඩු සොයන්න...";
+                    if(key === 'auth_email_ph') el.placeholder = "ඔබගේ ඊමේල් හෝ දුරකථන අංකය";
+                    if(key === 'auth_pass_ph') el.placeholder = "••••••••";
+                    if(key === 'auth_pass_cr') el.placeholder = "ශක්තිමත් මුරපදයක් සාදන්න";
+                    if(key === 'tp_loc_pickup') el.placeholder = "පිටත් වන ස්ථානය";
+                    if(key === 'tp_loc_drop') el.placeholder = "ගමනාන්තය කොහේද?";
+                    el.classList.add('font-sinhala');
+                } else {
+                    if(key === 'glo_search') el.placeholder = "Search groceries...";
+                    if(key === 'auth_email_ph') el.placeholder = "you@example.com";
+                    if(key === 'auth_pass_ph') el.placeholder = "••••••••";
+                    if(key === 'auth_pass_cr') el.placeholder = "Create a strong password";
+                    if(key === 'tp_loc_pickup') el.placeholder = "Pickup location";
+                    if(key === 'tp_loc_drop') el.placeholder = "Where to?";
+                    el.classList.remove('font-sinhala');
+                }
+            });
+            
+            // Handle JS driven translations directly if open
+            if(document.getElementById('auth-modal') && !document.getElementById('auth-modal').classList.contains('hidden')) {
+                 const authTitle = document.getElementById('auth-title');
+                 const authSubtitle = document.getElementById('auth-subtitle');
+                 if(isLoginMode) {
+                    authTitle.innerText = translations[lang]['auth_title_login'];
+                    authSubtitle.innerText = translations[lang]['auth_desc_login'];
+                 } else {
+                    authTitle.innerText = translations[lang]['auth_title_signup'];
+                    authSubtitle.innerText = translations[lang]['auth_desc_signup'];
+                 }
+            }
+
+            localStorage.setItem('lang', lang);
+        }
+
+        // Initialize with saved language
+        const currentLang = localStorage.getItem('lang') || 'en';
+        document.getElementById('lang-display').textContent = langCodes[currentLang];
+        applyLanguage(currentLang);
+
+        // Function to set logo image - call this with your image URL
+        function setLogoImage(imageUrl, showText = false) {
+            // Navbar logo
+            const logoImage = document.getElementById('logo-image');
+            const logoText = document.getElementById('logo-text');
+            if (logoImage) {
+                logoImage.src = imageUrl;
+                logoImage.style.display = 'block';
+            }
+            if (logoText && !showText) {
+                logoText.style.display = 'none';
+            }
+
+            // Footer logo
+            const footerLogoImage = document.getElementById('footer-logo-image');
+            const footerLogoText = document.getElementById('footer-logo-text');
+            if (footerLogoImage) {
+                footerLogoImage.src = imageUrl;
+                footerLogoImage.style.display = 'block';
+            }
+            if (footerLogoText && !showText) {
+                footerLogoText.style.display = 'none';
+            }
+        }
+
+        // Uncomment and update with your logo URL:
+        setLogoImage('./images/DailyGO_Logo_Sample_1_1_121.png');
+    </script>
+</body>
+</html>
